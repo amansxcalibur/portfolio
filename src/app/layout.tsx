@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-// import { PillProvider } from "@/../_contexts/pill";
-// import NavBar from "@/../components/navbar";
 import NavOverlay from "../../components/navigation/navOverlay";
+import { SectionProvider } from "../../components/navigation/pillConfig";
+import { TrackedStart } from "../../components/navigation/TrackedStart"; // adjust path
+import { TrackedEnd } from "../../components/navigation/TrackedEnd"; // adjust path
 import "./globals.css";
 
 const googleSansFlex = localFont({
@@ -28,30 +29,20 @@ export default function RootLayout({
       style={{ fontFamily: "var(--font-google-sans-flex), sans-serif" }}
     >
       <body className="min-h-full flex flex-col">
-        {/* <PillProvider> */}
-        <NavOverlay />
-        <section
-          id="start"
-          className="h-[100vh] bg-blue-100 flex items-center justify-center"
-        >
-          <h1>Top Hero Section</h1>
-        </section>
-        {children}
-        <div
-          id="end"
-          className="flex min-h-[90vh] items-end px-[1.5vw] py-[1vw] text-[1.5vw] text-[#555555] max-md:flex-col max-md:items-center max-md:justify-end max-md:p-[10vw] max-md:text-[5vw] md:gap-x-[3vw]"
-        >
-          <div className="md:flex-1">
-            <p>&copy; 2026</p>
-          </div>
-          <div className="flex gap-x-[3vw]">
-            <p className="flex-1">Instagram</p>
-            <p className="flex-1">Twitter</p>
-            <p className="flex-1">Linkedin</p>
-          </div>
-          <p className="whitespace-nowrap">Be expressive</p>
-        </div>
-        {/* </PillProvider> */}
+        <SectionProvider>
+          
+          <NavOverlay />
+          
+          {/* Triggers "start" state in the Pill */}
+          <TrackedStart />
+          
+          {/* Your page content (e.g., FeaturesSection) goes here */}
+          {children}
+          
+          {/* Triggers "end" state in the Pill */}
+          <TrackedEnd />
+
+        </SectionProvider>
       </body>
     </html>
   );
