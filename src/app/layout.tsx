@@ -33,8 +33,7 @@ export default function RootLayout({
           
           <NavOverlay />
           
-          {/* Triggers "start" state in the Pill */}
-          <TrackedStart />
+          
           
           {/* Your page content (e.g., FeaturesSection) goes here */}
           {children}

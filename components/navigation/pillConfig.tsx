@@ -2,28 +2,52 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Extract the loader into a variable so we can easily reuse it for both "start" and "end"
 const LoaderLeft = (
   <div className="relative w-full h-full rounded-full bg-amber-300 overflow-hidden">
-    <Image 
-      src="/shapes/loader.gif" 
-      alt="GIF" 
-      fill 
-      priority 
-      unoptimized 
-      className="object-cover scale-125" 
+    <Image
+      src="/shapes/loader.gif"
+      alt="GIF"
+      fill
+      priority
+      unoptimized
+      className="object-cover scale-125"
     />
   </div>
 );
 
-export const SECTION_CONFIG: Record<string, { left?: ReactNode; right?: ReactNode }> = {
+const Goodbye = (
+  <div className="relative w-full h-full rounded-full overflow-hidden gap-[60px] flex">
+    <Link href="/art">art</Link>
+    {/* <p className="text-stone-700">|</p> */}
+    <div className="relative m-[2px] w-[90px] h-[90px] rounded-full bg-amber-300 overflow-hidden grayscale contrast-200 invert">
+      <Image
+        src="/shapes/loader.gif"
+        alt="GIF"
+        fill
+        priority
+        unoptimized
+        className="object-cover scale-125"
+      />
+    </div>
+    <Link href="/dev">dev</Link>
+  </div>
+);
+
+// Added `center?: ReactNode` to the type
+export const SECTION_CONFIG: Record<
+  string,
+  { left?: ReactNode; right?: ReactNode; center?: ReactNode }
+> = {
   // --- WHEN AT THE TOP ---
   start: {
     left: LoaderLeft,
-    right: null, // Nothing on the right
+    right: null,
+    center: "~Hola Pe", // Dynamic center
   },
-  
+
   // --- WHEN IN FEATURES ---
   features: {
     left: (
@@ -36,12 +60,34 @@ export const SECTION_CONFIG: Record<string, { left?: ReactNode; right?: ReactNod
         tiendo
       </div>
     ),
+    center: "~Features", // Dynamic center
+  },
+  about: {
+    left: null,
+    right: (
+      <div className="w-full h-full rounded-full bg-black text-white font-bold flex items-center justify-center text-[42px]">
+        ❤️
+      </div>
+    ),
+    center: "~About", // Dynamic center
+  },
+
+  // -- art --
+  art: {
+    left: (
+      <div className="w-full h-full rounded-full bg-black text-white font-bold flex items-center justify-center text-[24px]">
+        {'<'}-
+      </div>
+    ),
+    right: null,
+    center: "~Lots left", // Dynamic center
   },
 
   // --- WHEN AT THE BOTTOM ---
   end: {
-    left: LoaderLeft,
-    right: null, // Nothing on the right
+    left: null,
+    right: null,
+    center: Goodbye, // Dynamic center
   },
 };
 

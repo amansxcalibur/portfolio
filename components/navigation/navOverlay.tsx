@@ -20,16 +20,16 @@ export default function NavOverlay() {
   return (
     <>
       <nav
-        className={`fixed top-0 z-50 flex w-full transform text-[1.3vw] duration-150 max-md:text-[4vw] ${
+        className={`text-black/60 fixed top-0 z-50 flex w-full transform text-[1.3vw] duration-150 max-md:text-[4vw] ${
           hidden ? "-translate-y-full" : ""
         }`}
       >
         <div className="flex flex-1 justify-start pt-[0.75vw] pl-[0.75vw] max-md:py-[3vw] max-md:pl-[3vw]">
           <Link
             href="/#hero"
-            className="flex size-[4vw] items-center justify-center gap-x-[0.2vw] rounded-full backdrop-blur-xl max-md:px-[1.5vw]"
+            className={linkClass}
           >
-            a
+            aman valiyakath
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-center gap-0.5 py-[0.75vw] max-md:py-[3vw] max-md:pr-[3vw]">

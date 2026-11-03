@@ -9,8 +9,8 @@ export default function Pill() {
   const pillRef = useRef<HTMLDivElement>(null);
   const { activeSection } = useSection();
   
-  // Get the active items based on section
-  const currentConfig = SECTION_CONFIG[activeSection] || SECTION_CONFIG["hero"];
+  // Get the active items based on section, default to "start" instead of "hero"
+  const currentConfig = SECTION_CONFIG[activeSection] || SECTION_CONFIG["start"];
 
   // Hook handles scaling the parent on scroll
   usePillAnimation(pillRef);
@@ -29,9 +29,10 @@ export default function Pill() {
         </MergeSlot>
 
         {/* --- MAIN PILL --- */}
-        <div className="shrink-0 relative z-10">
+        <div className="shrink-0 relative z-10 transition-all duration-300">
           <div className="bg-black text-white rounded-full tracking-wider flex items-center px-[45px] py-[8px]">
-            ~Hola Pe
+            {/* Render the dynamic center text, fallback to ~Hola Pe just in case */}
+            {currentConfig.center || "~Hola Pe"}
           </div>
         </div>
 
