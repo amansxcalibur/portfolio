@@ -32,6 +32,8 @@
   --color-on-inverse: var(--on-inverse);
   --color-glass: var(--glass);
   --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
   --animate-pill-label: pill-label 280ms ease-out;
 }
 
@@ -50,7 +52,10 @@
 
 html {
   scroll-behavior: smooth;
-  /* Rounded terminals everywhere: the type should feel like the shapes. */
+}
+
+/* Rounded terminals only where the type sits next to the shapes (the pill). */
+@utility font-round {
   font-variation-settings: "ROND" 100;
 }
 

@@ -20,11 +20,12 @@ export function Hero() {
         className="absolute -bottom-[18vmin] -left-[14vmin] size-[70vmin] text-surface-dim"
       />
       <div className="relative px-4">
-        <h1 className="text-[clamp(1.5rem,2.6vw,2.5rem)] font-semibold tracking-tight">
+        <h1 className="font-serif text-[clamp(1.75rem,3vw,2.75rem)] leading-none">
           Aman Valiyakath
         </h1>
-        <p className="mt-1 text-[clamp(1rem,1.5vw,1.5rem)] text-on-surface-muted">
-          Art and programming, in equal measure
+        <p className="mt-2 font-mono text-[clamp(0.75rem,0.9vw,0.875rem)] tracking-wide text-on-surface-muted uppercase">
+          art <span className="font-serif text-[1.4em] normal-case italic">&amp;</span>{" "}
+          programming, in equal measure
         </p>
       </div>
     </TrackedSection>

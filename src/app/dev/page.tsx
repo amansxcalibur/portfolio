@@ -43,21 +43,22 @@ const themes = {
 
 export default function Dev() {
   return (
-    <main className="flex-1 px-[clamp(0.5rem,1vw,1rem)]">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-[clamp(0.75rem,2vw,1.5rem)]">
       <TrackedSection
         section="dev"
-        className="relative flex min-h-[70svh] flex-col justify-end px-[clamp(0.5rem,3vw,4rem)] pt-28 pb-[clamp(2rem,5vw,5rem)]"
+        className="relative flex flex-col justify-end px-[clamp(0.25rem,2vw,2rem)] pt-36 pb-[clamp(2rem,4vw,4rem)]"
       >
         <ShapeMorph
           startAt={4}
-          className="absolute top-24 right-[clamp(0.5rem,3vw,4rem)] size-[clamp(6rem,22vw,22rem)] text-blue-600"
+          className="absolute top-28 right-[clamp(0.25rem,2vw,2rem)] size-[clamp(4.5rem,12vw,10rem)] text-blue-600"
         />
-        <h1 className="relative text-[clamp(3.5rem,13vw,13rem)] leading-[0.9] font-semibold tracking-tight">
-          Things
-          <br />
-          I’ve built
+        <p className="relative font-mono text-xs tracking-wide text-on-surface-muted uppercase">
+          Dev / open source
+        </p>
+        <h1 className="relative mt-3 font-serif text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95]">
+          Things <em>I’ve built</em>
         </h1>
-        <p className="relative mt-[clamp(1.25rem,2.5vw,2.5rem)] max-w-3xl text-[clamp(1.25rem,2.1vw,2.25rem)] leading-tight font-medium tracking-tight text-on-surface-muted">
+        <p className="relative mt-4 max-w-xl text-[clamp(1rem,1.3vw,1.2rem)] text-on-surface-muted">
           Desktop shells, shape morphing and web apps, all open source.
         </p>
       </TrackedSection>
@@ -67,14 +68,14 @@ export default function Dev() {
         theme={themes.shapes}
         layout="split"
         footnote={
-          <code className="mt-3 block w-fit max-w-full overflow-x-auto rounded-2xl bg-[#00392a]/10 px-4 py-3 font-mono text-[clamp(0.875rem,1vw,1rem)]">
+          <code className="mt-3 block w-fit max-w-full overflow-x-auto rounded-md bg-[#00392a]/10 px-3 py-2 font-mono text-sm">
             pip install expressive-shapes
           </code>
         }
       >
-        <figure className="flex flex-col items-center gap-6">
-          <ShapeMorph holdMs={1100} className="aspect-square w-[min(80%,34rem)] text-[#004d36]" />
-          <figcaption className="text-center text-[clamp(0.95rem,1.1vw,1.125rem)] opacity-80">
+        <figure className="flex flex-col items-center gap-4">
+          <ShapeMorph holdMs={1100} className="aspect-square w-[min(70%,20rem)] text-[#004d36]" />
+          <figcaption className="max-w-xs text-center text-sm opacity-80">
             Live, not a recording. Every shape morphing on this site was generated
             by this library.
           </figcaption>
@@ -82,14 +83,15 @@ export default function Dev() {
       </ProjectCard>
 
       <ProjectCard project={zenithShell} theme={themes.zenith} layout="stacked">
-        <div className="grid gap-[clamp(0.5rem,1vw,1rem)] sm:grid-cols-3">
+        {/* Three 16:9 thumbs stacked in one column match the height of a 16:9 image three columns wide. */}
+        <div className="grid gap-2 sm:grid-cols-4">
           <Image
             src={`${ZENITH_SCREENSHOTS}/dashboard-m3-2.png`}
             alt="Zenith Shell dashboard with quick settings, notifications and an agenda over a red wallpaper"
             width={1920}
             height={1080}
-            sizes="(min-width: 1800px) 1700px, 95vw"
-            className="h-auto w-full rounded-[clamp(1rem,2.5vw,2.5rem)] sm:col-span-3"
+            sizes="(min-width: 1152px) 800px, 95vw"
+            className="h-auto w-full rounded-lg sm:col-span-3 sm:row-span-3"
           />
           {zenithGallery.map(({ file, alt }) => (
             <Image
@@ -98,8 +100,8 @@ export default function Dev() {
               alt={alt}
               width={1920}
               height={1080}
-              sizes="(min-width: 640px) 32vw, 95vw"
-              className="h-auto w-full rounded-[clamp(1rem,2vw,2rem)]"
+              sizes="(min-width: 640px) 270px, 95vw"
+              className="h-auto w-full rounded-lg"
             />
           ))}
         </div>
@@ -113,18 +115,18 @@ export default function Dev() {
         <Image
           src={bunkmateScreenshot}
           alt="The bunkmate.in landing page, with BUNK-MATE in huge white letters under a glowing blue orb"
-          sizes="(min-width: 1024px) 48vw, 95vw"
+          sizes="(min-width: 1024px) 540px, 95vw"
           placeholder="blur"
-          className="relative h-auto w-full rounded-[clamp(1rem,2vw,2rem)] ring-1 ring-white/20"
+          className="relative h-auto w-full rounded-lg ring-1 ring-white/20"
         />
       </ProjectCard>
 
-      <div className="flex justify-center pt-[clamp(2.5rem,6vw,6rem)]">
+      <div className="flex justify-center pt-16">
         <a
           href={GITHUB_URL}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 text-[clamp(1.25rem,2.1vw,2.25rem)] font-medium tracking-tight underline-offset-8 hover:underline"
+          className="inline-flex items-center gap-2 font-serif text-[clamp(1.5rem,2.2vw,2rem)] italic underline-offset-8 hover:underline"
         >
           Everything else on GitHub
           <ArrowIcon />

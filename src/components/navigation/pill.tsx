@@ -80,7 +80,7 @@ export default function Pill() {
     <div
       ref={pillRef}
       // Hidden until usePillAnimation has placed it, then positioned by inline style.
-      className="pointer-events-none fixed bottom-0 left-1/2 z-50 origin-bottom text-[clamp(2rem,4.4vw,4rem)] whitespace-nowrap opacity-0"
+      className="pointer-events-none fixed bottom-0 left-1/2 z-50 origin-bottom font-round text-[clamp(2rem,4.4vw,4rem)] whitespace-nowrap opacity-0"
     >
       <div
         inert={hidden}

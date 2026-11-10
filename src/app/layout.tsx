@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import NavOverlay from "@/components/navigation/navOverlay";
 import { SectionProvider } from "@/components/navigation/pillConfig";
@@ -10,6 +11,22 @@ const googleSansFlex = localFont({
   variable: "--font-google-sans-flex",
   // Declares the variable range; without it every weight is synthesized from 400.
   weight: "1 1000",
+  display: "swap",
+});
+
+// Display serif for headings: the classy half of the pairing.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+// Small labels, indices and code.
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
@@ -31,7 +48,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${googleSansFlex.variable} h-full antialiased`}
+      className={`${googleSansFlex.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <SectionProvider>

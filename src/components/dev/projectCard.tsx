@@ -37,32 +37,32 @@ export async function ProjectCard({
       section={`project-${project.slug}`}
       id={project.slug}
       aria-labelledby={`${project.slug}-title`}
-      className="py-[clamp(0.25rem,0.5vw,0.5rem)]"
+      className="py-1.5"
     >
       <article
-        className={`relative overflow-hidden rounded-[clamp(2rem,5vw,5rem)] p-[clamp(1.25rem,4vw,5rem)] ${theme.card}`}
+        className={`relative overflow-hidden rounded-[clamp(1rem,2vw,1.75rem)] p-[clamp(1.25rem,3.5vw,3rem)] ${theme.card}`}
       >
         <div
-          className={`relative grid gap-[clamp(2rem,4vw,5rem)] ${
+          className={`relative grid gap-[clamp(1.5rem,3vw,3rem)] ${
             layout === "split" ? "items-center lg:grid-cols-2" : ""
           }`}
         >
-          <div className={layout === "stacked" ? "max-w-4xl" : ""}>
+          <div className={layout === "stacked" ? "max-w-2xl" : ""}>
             <h2
               id={`${project.slug}-title`}
-              className="text-[clamp(2.5rem,6.5vw,6.5rem)] leading-[0.95] font-semibold tracking-tight"
+              className="font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-none"
             >
               {project.name}
             </h2>
-            <p className="mt-[0.6em] text-[clamp(1.25rem,2.1vw,2.25rem)] leading-tight font-medium tracking-tight">
+            <p className="mt-3 text-[clamp(1.05rem,1.4vw,1.3rem)] leading-snug font-medium">
               {project.tagline}
             </p>
-            <p className="mt-[1em] max-w-[60ch] text-[clamp(1rem,1.25vw,1.25rem)] leading-relaxed opacity-85">
+            <p className="mt-3 max-w-[60ch] text-[0.95rem] leading-relaxed opacity-85">
               {project.description}
             </p>
 
             {project.credits && (
-              <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[clamp(0.95rem,1.1vw,1.125rem)] opacity-85">
+              <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm opacity-85">
                 {project.credits.map(({ label, href }) => (
                   <li key={label}>
                     {href ? (
@@ -82,30 +82,30 @@ export async function ProjectCard({
               </ul>
             )}
 
-            <ul className="mt-6 flex flex-wrap gap-2 text-[clamp(0.875rem,1vw,1rem)]">
+            <ul className="mt-5 flex flex-wrap gap-1.5 font-mono text-xs">
               {stars !== null && stars >= MIN_STARS_SHOWN && (
-                <li className={`rounded-full px-[1em] py-[0.35em] ${theme.chip}`}>
+                <li className={`rounded px-2 py-1 ${theme.chip}`}>
                   ★ {stars} on GitHub
                 </li>
               )}
               {project.facts.map((fact) => (
-                <li key={fact} className={`rounded-full px-[1em] py-[0.35em] ${theme.chip}`}>
+                <li key={fact} className={`rounded px-2 py-1 ${theme.chip}`}>
                   {fact}
                 </li>
               ))}
             </ul>
 
-            <div className="mt-8 flex flex-wrap gap-2">
+            <div className="mt-6 flex flex-wrap gap-2">
               {project.links.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className={`inline-flex items-center gap-2 rounded-full px-[1.3em] py-[0.7em] text-[clamp(1rem,1.25vw,1.25rem)] font-medium transition-[border-radius,transform] duration-300 hover:rounded-2xl active:scale-95 ${theme.button}`}
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-[border-radius,transform] duration-300 hover:rounded-md active:scale-95 ${theme.button}`}
                 >
                   {label}
-                  <ArrowIcon />
+                  <ArrowIcon className="size-3.5" />
                 </a>
               ))}
             </div>

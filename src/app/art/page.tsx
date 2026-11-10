@@ -9,18 +9,18 @@ export const metadata: Metadata = {
   description: "Sketches and animation made in Krita.",
 };
 
-const mediaClass = "block w-full rounded-[clamp(1.5rem,3vw,3rem)] bg-white";
+const mediaClass = "block w-full rounded-[clamp(0.75rem,1.5vw,1.25rem)] bg-white";
 
 export default function Art() {
   return (
     <main className="flex-1">
       <TrackedSection
         section="art"
-        className="rounded-b-[clamp(2rem,5vw,5rem)] bg-blue-600 px-[clamp(0.5rem,1.5vw,1.5rem)] pt-28 pb-[clamp(0.5rem,1.5vw,1.5rem)] text-white"
+        className="rounded-b-[clamp(1.25rem,3vw,2.5rem)] bg-blue-600 px-[clamp(0.5rem,1.5vw,1.5rem)] pt-28 pb-[clamp(0.5rem,1.5vw,1.5rem)] text-white"
       >
         <div className="mx-auto flex max-w-[1680px] flex-col gap-[clamp(0.5rem,1.5vw,1.5rem)]">
-          <h1 className="px-[clamp(0.5rem,1.5vw,1.5rem)] pb-[clamp(1rem,3vw,3rem)] text-[clamp(3rem,11vw,11rem)] leading-[0.95] font-semibold tracking-tight">
-            Krita my beloved
+          <h1 className="px-[clamp(0.5rem,1.5vw,1.5rem)] pb-[clamp(1rem,3vw,3rem)] font-serif text-[clamp(2.75rem,7vw,6.5rem)] leading-[0.95]">
+            Krita <em>my beloved</em>
           </h1>
           <LoopVideo
             src="/krita/intro.mp4"

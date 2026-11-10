@@ -115,8 +115,8 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
     extraLeft: backToTop,
     extraRight: <DismissButton />,
   },
-  "art-or-project": {
-    center: "~Pick one",
+  work: {
+    center: "~Index",
     extraLeft: backToTop,
     extraRight: <DismissButton />,
   },
