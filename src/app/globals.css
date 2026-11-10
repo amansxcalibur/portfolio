@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  color-scheme: light dark;
+  --surface: #dbeafe;
+  --surface-dim: #c7dbfb;
+  --on-surface: #0f172a;
+  --on-surface-muted: #475569;
+  --inverse: #000000;
+  --on-inverse: #ffffff;
+  --glass: rgb(255 255 255 / 0.65);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --surface: #0b1120;
+    --surface-dim: #131c33;
+    --on-surface: #e8edf7;
+    --on-surface-muted: #a3b1c6;
+    --inverse: #e8edf7;
+    --on-inverse: #0b1120;
+    --glass: rgb(19 28 51 / 0.65);
   }
 }
 
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-muted: var(--on-surface-muted);
+  --color-inverse: var(--inverse);
+  --color-on-inverse: var(--on-inverse);
+  --color-glass: var(--glass);
+  --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
+  --animate-pill-label: pill-label 280ms ease-out;
+}
+
+@keyframes pill-label {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+@keyframes shape-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Rounded terminals everywhere: the type should feel like the shapes. */
+  font-variation-settings: "ROND" 100;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  /* font-family: Google Sans Flex; */
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

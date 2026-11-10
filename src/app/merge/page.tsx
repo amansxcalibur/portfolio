@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type PointerEvent } from "react";
+import Image from "next/image";
 import { Liquid } from "liquid-gooey";
 
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -77,9 +78,11 @@ export default function GooeyDrag() {
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
         >
-          <img
+          <Image
             src="/shapes/puffy-diamond.png"
             alt="shape"
+            width={64}
+            height={64}
             className="h-full w-full rounded-full object-cover pointer-events-none"
             style={{ opacity: imgOpacity }}
           />

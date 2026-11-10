@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useState, type PointerEvent } from "react";
+import Image from "next/image";
 import { Liquid } from "liquid-gooey";
 
 export default function GooeyDrag() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
   const drag = useRef<{
     startX: number;
     startY: number;
@@ -13,6 +15,7 @@ export default function GooeyDrag() {
   } | null>(null);
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    setIsDragging(true);
     drag.current = {
       startX: e.clientX,
       startY: e.clientY,
@@ -32,6 +35,7 @@ export default function GooeyDrag() {
   };
 
   const endDrag = () => {
+    setIsDragging(false);
     drag.current = null;
     // Optional: snap back to start when released
     // setPos({ x: 0, y: 0 });
@@ -51,7 +55,7 @@ export default function GooeyDrag() {
           warp: 40, // Higher turbulence
           mix: 1, // Maximum marbling/erosion strength
           gravity: 100, // How deep the melt reaches into the element
-          active: !!drag.current,
+          active: isDragging,
         }}
         className="shrink-0 cursor-grab touch-none select-none active:cursor-grabbing"
       >
@@ -65,9 +69,11 @@ export default function GooeyDrag() {
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
         >
-          <img
+          <Image
             src="/shapes/puffy-diamond.png"
             alt="shape"
+            width={64}
+            height={64}
             className="h-full w-full rounded-full object-cover pointer-events-none"
           />
         </div>
