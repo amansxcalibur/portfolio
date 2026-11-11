@@ -1,7 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { FlexWords, words } from "@/components/flexWords";
 import { LoopVideo } from "@/components/loopVideo";
 import { TrackedSection } from "@/components/navigation/TrackedSection";
+import { ShapeStack, type StackFocus } from "@/components/shapes/shapeStack";
 import { ShapeMorph } from "@/components/shapes/shapeMorph";
+
 
 const inlineLinkClass =
   "group/word relative inline-flex items-baseline gap-[0.2em] whitespace-nowrap underline decoration-[0.06em] underline-offset-[0.14em] transition-colors";
@@ -11,23 +17,32 @@ const chipClass =
   "inline-block h-[0.82em] translate-y-[0.08em] overflow-hidden rounded-[0.18em] align-baseline ring-1 ring-black/10 transition-transform duration-300";
 
 export default function AboutMe() {
+  // The shapes on the left lean towards whichever word is hovered.
+  const [focus, setFocus] = useState<StackFocus>("none");
+  const focusOn = (layer: StackFocus) => ({
+    onPointerEnter: () => setFocus(layer),
+    onPointerLeave: () => setFocus("none"),
+    onFocus: () => setFocus(layer),
+    onBlur: () => setFocus("none"),
+  });
+
   return (
     <TrackedSection
       section="about"
       id="about"
       className="flex min-h-svh items-center justify-center px-[clamp(1.25rem,5vw,6rem)] py-32"
     >
-      <div className="grid w-full max-w-6xl gap-x-12 gap-y-8 md:grid-cols-[10rem_1fr]">
-        <p className="font-mono text-xs tracking-wide text-on-surface-muted uppercase md:pt-4">
-          (01) About
-        </p>
+      <div className="grid w-full max-w-6xl items-center gap-x-[clamp(2rem,5vw,5rem)] gap-y-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        <ShapeStack focus={focus} className="w-full max-md:mx-auto max-md:max-w-[22rem]" />
 
         <div>
-          <p className="font-serif text-[clamp(1.85rem,3.6vw,3.4rem)] leading-[1.12] text-on-surface">
-            I enjoy exploring the intersection of{" "}
+          <p className="eyebrow mb-5">About</p>
+          <FlexWords className="text-[clamp(1.6rem,2.9vw,2.75rem)] leading-[1.15] font-[450] tracking-tight text-on-surface">
+            {words("I enjoy exploring the intersection of")}{" "}
             <Link
               href="/art"
-              className={`${inlineLinkClass} decoration-blue-600/40 hover:text-blue-600`}
+              {...focusOn("art")}
+              className={`${inlineLinkClass} decoration-pop-blue/40 hover:text-pop-blue dark:hover:text-blue-400`}
             >
               <span className={`${chipClass} aspect-[4/3] -rotate-6 group-hover/word:rotate-3`}>
                 <LoopVideo
@@ -36,12 +51,13 @@ export default function AboutMe() {
                   className="size-full object-cover"
                 />
               </span>
-              <em>art</em>
+              <em className="font-serif text-[1.08em] tracking-normal">art</em>
             </Link>{" "}
-            and{" "}
+            {words("and")}{" "}
             <Link
               href="/dev"
-              className={`${inlineLinkClass} decoration-[#00795a]/40 hover:text-[#00795a]`}
+              {...focusOn("code")}
+              className={`${inlineLinkClass} decoration-[#00795a]/40 hover:text-[#00795a] dark:hover:text-mint`}
             >
               <span
                 className={`${chipClass} aspect-square rotate-6 bg-[#a6f0cb] p-[0.06em] text-[#004d36] group-hover/word:-rotate-6`}
@@ -50,13 +66,15 @@ export default function AboutMe() {
               </span>
               <span className="font-mono text-[0.78em] tracking-tight">programming</span>
             </Link>
-            . Whether I’m building desktop environments and UI tooling for Linux
-            or experimenting with visual art and animation, I’m drawn to whatever
-            lets me <em>combine engineering with creative expression.</em>
-          </p>
+            {words(
+              ". Whether I’m building desktop environments and UI tooling for Linux or experimenting with visual art and animation, I’m drawn to whatever lets me",
+            )}{" "}
+            <strong className="font-semibold">combine engineering with creative expression.</strong>
+          </FlexWords>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3 text-[clamp(0.95rem,1.1vw,1.1rem)] text-on-surface-muted">
-            <span className="inline-block -rotate-2 rounded-md bg-inverse px-2.5 py-1 font-mono text-xs tracking-wide text-on-inverse uppercase">
+          <div className="mt-10 h-px w-full bg-on-surface/15" />
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-[clamp(0.95rem,1.1vw,1.1rem)] text-on-surface-muted">
+            <span className="inline-block -rotate-2 rounded-full bg-inverse px-3 py-1 font-mono text-xs tracking-wide text-on-inverse uppercase">
               Currently
             </span>
             exploring software, expressive interfaces &amp; motion.

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ProjectCard, type ProjectTheme } from "@/components/dev/projectCard";
 import { ArrowIcon } from "@/components/icons";
 import { TrackedSection } from "@/components/navigation/TrackedSection";
+import { PageHeader } from "@/components/pageHeader";
 import { ShapeMorph } from "@/components/shapes/shapeMorph";
 import { GITHUB_URL } from "@/content/links";
 import { bunkmate, expressiveShapes, zenithShell } from "@/content/projects";
@@ -35,7 +36,8 @@ const themes = {
     chip: "bg-[#561e19]/10",
   },
   bunkmate: {
-    card: "bg-black text-white",
+    // The ring keeps the black card's edge on the near-black dark surface.
+    card: "bg-black text-white ring-1 ring-white/10",
     button: "bg-white text-black",
     chip: "bg-white/15",
   },
@@ -44,23 +46,17 @@ const themes = {
 export default function Dev() {
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-[clamp(0.75rem,2vw,1.5rem)]">
-      <TrackedSection
-        section="dev"
-        className="relative flex flex-col justify-end px-[clamp(0.25rem,2vw,2rem)] pt-36 pb-[clamp(2rem,4vw,4rem)]"
-      >
-        <ShapeMorph
-          startAt={4}
-          className="absolute top-28 right-[clamp(0.25rem,2vw,2rem)] size-[clamp(4.5rem,12vw,10rem)] text-blue-600"
+      <TrackedSection section="dev">
+        <PageHeader
+          eyebrow="Dev / open source"
+          title={
+            <>
+              Things <em>I’ve built</em>
+            </>
+          }
+          lead="Desktop shells, shape morphing and web apps, all open source."
+          shapeStart={4}
         />
-        <p className="relative font-mono text-xs tracking-wide text-on-surface-muted uppercase">
-          Dev / open source
-        </p>
-        <h1 className="relative mt-3 font-serif text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95]">
-          Things <em>I’ve built</em>
-        </h1>
-        <p className="relative mt-4 max-w-xl text-[clamp(1rem,1.3vw,1.2rem)] text-on-surface-muted">
-          Desktop shells, shape morphing and web apps, all open source.
-        </p>
       </TrackedSection>
 
       <ProjectCard
@@ -121,7 +117,8 @@ export default function Dev() {
         />
       </ProjectCard>
 
-      <div className="flex justify-center pt-16">
+      <div className="mx-auto mt-16 h-px w-2/3 bg-on-surface/15" />
+      <div className="flex justify-center pt-10">
         <a
           href={GITHUB_URL}
           target="_blank"

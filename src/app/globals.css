@@ -8,6 +8,8 @@
   --on-surface-muted: #475569;
   --inverse: #000000;
   --on-inverse: #ffffff;
+  /* The second ink on the pill, for letters that want to stand out. */
+  --on-inverse-accent: #a6f0cb;
   --glass: rgb(255 255 255 / 0.65);
 }
 
@@ -19,6 +21,7 @@
     --on-surface-muted: #a3b1c6;
     --inverse: #e8edf7;
     --on-inverse: #0b1120;
+    --on-inverse-accent: #2563eb;
     --glass: rgb(19 28 51 / 0.65);
   }
 }
@@ -30,17 +33,81 @@
   --color-on-surface-muted: var(--on-surface-muted);
   --color-inverse: var(--inverse);
   --color-on-inverse: var(--on-inverse);
+  --color-on-inverse-accent: var(--on-inverse-accent);
   --color-glass: var(--glass);
+  /* The pop palette: flat Material tonal pairs, the same in light and dark. */
+  --color-pop-blue: #2563eb;
+  --color-mint: #a6f0cb;
+  --color-on-mint: #00392a;
+  --color-peach: #ffdad5;
+  --color-on-peach: #561e19;
+  --color-sun: #ffe07a;
+  --color-on-sun: #4a3800;
   --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
-  --animate-pill-label: pill-label 280ms ease-out;
+  /* Material 3 expressive: a spring with overshoot, and its calmer sibling. */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --animate-pill-label: pill-label 420ms var(--ease-emphasized);
+  --animate-flex-loop: flex-loop 7s var(--ease-emphasized) infinite;
+  --animate-rise: rise 900ms var(--ease-emphasized) both;
+  --animate-bob: bob 2.4s ease-in-out infinite;
 }
 
+/* The label arrives condensed and light, then settles into its width. */
 @keyframes pill-label {
   from {
     opacity: 0;
     filter: blur(10px);
+    font-variation-settings: "wght" 200, "wdth" 60, "ROND" 100;
+  }
+  to {
+    font-variation-settings: "wght" 400, "wdth" 100, "ROND" 100;
+  }
+}
+
+/* One word running through the typeface's range. Axes stay in the same order so they interpolate. */
+@keyframes flex-loop {
+  0%,
+  12%,
+  100% {
+    font-variation-settings: "wght" 400, "wdth" 100, "slnt" 0, "ROND" 0;
+  }
+  25%,
+  37% {
+    font-variation-settings: "wght" 900, "wdth" 140, "slnt" 0, "ROND" 100;
+  }
+  50%,
+  62% {
+    font-variation-settings: "wght" 200, "wdth" 40, "slnt" -10, "ROND" 0;
+  }
+  75%,
+  87% {
+    font-variation-settings: "wght" 700, "wdth" 75, "slnt" -10, "ROND" 100;
+  }
+}
+
+/* Text entering: it rises, sharpens and tightens from wide and thin. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 0.6em;
+    filter: blur(8px);
+  }
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 0.3em;
+  }
+}
+
+/* A slow swell and fade, for glows that should feel alive. */
+@keyframes breathe {
+  50% {
+    scale: 1.05;
+    opacity: 0.75;
   }
 }
 
@@ -54,14 +121,39 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-pop-blue) 35%, transparent);
+}
+
 /* Rounded terminals only where the type sits next to the shapes (the pill). */
 @utility font-round {
   font-variation-settings: "ROND" 100;
 }
 
-body {
-  background: var(--surface);
-  color: var(--on-surface);
+/* Small caps-and-mono label that opens a page or a section. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-surface-muted);
+}
+
+/*
+ * Words that gain grade and soften as the pointer nears (see FlexWords).
+ * Grade and roundness don't change a glyph's width, so nothing reflows.
+ */
+@utility flex-word {
+  font-variation-settings:
+    "GRAD" calc(var(--near, 0) * 100),
+    "ROND" calc(var(--near, 0) * 100);
+  transition: font-variation-settings 300ms ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {

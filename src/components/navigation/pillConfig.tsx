@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import Link from "next/link";
+import { FLEX_NAME_MAX_EM, FlexName } from "@/components/flexName";
 import { ArrowIcon, CloseIcon } from "@/components/icons";
 import { ShapeMorph } from "@/components/shapes/shapeMorph";
 import { GITHUB_URL } from "@/content/links";
@@ -93,11 +94,20 @@ type SectionPill = {
   /** Revealed when the pill is hovered, focused or tapped. */
   extraLeft?: ReactNode;
   extraRight?: ReactNode;
+  /** The center label animates its own width; the pill follows it without a spring. */
+  fluid?: boolean;
+  /** Widest the whole pill gets, in em, so its scale can be fitted to the viewport once. */
+  fitEm?: number;
 };
+
+// Label padding, the shape slot beside it and the gap between them.
+const START_CHROME_EM = 1.4 + 1.75 + 0.5;
 
 export const SECTION_CONFIG: Record<string, SectionPill> = {
   start: {
-    center: "~Hola Pe",
+    center: <FlexName />,
+    fluid: true,
+    fitEm: FLEX_NAME_MAX_EM + START_CHROME_EM,
     left: (
       <div className="flex size-full items-center justify-center rounded-full bg-[#a6f0cb] text-[#004d36]">
         <ShapeMorph tempo="loader" className="size-[78%]" />
