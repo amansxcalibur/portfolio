@@ -7,6 +7,8 @@ const REST_SCALE = 1;
 const REST_OFFSET_PX = 24;
 const MAX_SCALE = 2;
 const VIEWPORT_MARGIN_PX = 32;
+/** The pill stays centered until the bottom of #start rises above this fraction of the viewport. */
+const START_RELEASE = 0.8;
 const TRANSITION = "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
 
 const lerp = (from: number, to: number, t: number) => from + (to - from) * t;
@@ -50,13 +52,16 @@ export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
       const start = document.getElementById("start");
       const end = document.getElementById("end");
 
-      if (start && start.getBoundingClientRect().bottom > innerHeight * 0.4) {
+      if (start && start.getBoundingClientRect().bottom > innerHeight * START_RELEASE) {
         place(centerY, fullScale, true);
         return;
       }
 
-      const endTop = end ? end.getBoundingClientRect().top : innerHeight;
-      const progress = Math.min(1, Math.max(0, (innerHeight - endTop) / innerHeight));
+      // #end can be shorter than the viewport, so the climb completes over its own height.
+      const endRect = end?.getBoundingClientRect();
+      const endTop = endRect ? endRect.top : innerHeight;
+      const climb = Math.min(innerHeight, endRect?.height || innerHeight);
+      const progress = Math.min(1, Math.max(0, (innerHeight - endTop) / climb));
 
       if (progress > 0) {
         place(

@@ -10,7 +10,7 @@ import {
 } from "react";
 import Link from "next/link";
 import { FLEX_NAME_MAX_EM, FlexName } from "@/components/flexName";
-import { ArrowIcon, CloseIcon } from "@/components/icons";
+import { ArrowIcon, CloseIcon, SquiggleIcon } from "@/components/icons";
 import { ShapeMorph } from "@/components/shapes/shapeMorph";
 import { GITHUB_URL } from "@/content/links";
 import {
@@ -25,31 +25,42 @@ const slotClass =
 const iconClass = "size-[0.8em]";
 const extraColors = "bg-inverse text-on-inverse";
 
-const backHome = (
-  <Link href="/" aria-label="Back to home" className={`${slotClass} ${extraColors}`}>
-    <ArrowIcon className={`${iconClass} -rotate-135`} />
-  </Link>
-);
+/** Width of the controls capsule: two buttons sharing one shape, a little tighter than two circles. */
+const CONTROLS_WIDTH_EM = 3.25;
+const controlClass =
+  "flex h-full flex-1 items-center justify-center rounded-full transition-colors hover:bg-on-inverse/15 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-current";
 
-const backToTop = (
-  <Link href="#start" aria-label="Back to top" className={`${slotClass} ${extraColors}`}>
-    <ArrowIcon className={`${iconClass} -rotate-45`} />
-  </Link>
-);
-
-function DismissButton() {
+/**
+ * The pill's own controls in one shape. With a way back to the top it is a
+ * capsule: back, then hide. Hide sits next to the pill, so a near miss from
+ * the label costs nothing. Without one it is a single circle; inner pages get
+ * home from the name in the top nav.
+ */
+function Controls({ backToTop = false }: { backToTop?: boolean }) {
   const { dismiss } = useSection();
   return (
-    <button
-      type="button"
-      aria-label="Hide this menu until the next section"
-      onClick={dismiss}
-      className={`${slotClass} ${extraColors} cursor-pointer`}
+    <div
+      className={`flex size-full items-center rounded-full shadow-[0_0_0_1px_rgb(255_255_255/0.2)] ${extraColors}`}
     >
-      <CloseIcon className={iconClass} />
-    </button>
+      {backToTop && (
+        <Link href="#start" aria-label="Back to top" className={controlClass}>
+          <ArrowIcon className={`${iconClass} -rotate-45`} />
+        </Link>
+      )}
+      <button
+        type="button"
+        aria-label="Hide this menu until the next section"
+        onClick={dismiss}
+        className={`${controlClass} cursor-pointer`}
+      >
+        <CloseIcon className={iconClass} />
+      </button>
+    </div>
   );
 }
+
+const pageControls = { extraLeft: <Controls /> };
+const topControls = { extraLeft: <Controls backToTop />, extraLeftWidthEm: CONTROLS_WIDTH_EM };
 
 function externalSlot(href: string, label: string, colors: string) {
   return (
@@ -70,8 +81,7 @@ function projectSection(project: Project, colors: string): SectionPill {
   return {
     center: project.pillLabel,
     right: externalSlot(repo ?? GITHUB_URL, `${project.name} on GitHub`, colors),
-    extraLeft: backHome,
-    extraRight: <DismissButton />,
+    ...pageControls,
   };
 }
 
@@ -94,6 +104,8 @@ type SectionPill = {
   /** Revealed when the pill is hovered, focused or tapped. */
   extraLeft?: ReactNode;
   extraRight?: ReactNode;
+  /** Width of extraLeft in em when it is wider than one circle. */
+  extraLeftWidthEm?: number;
   /** The center label animates its own width; the pill follows it without a spring. */
   fluid?: boolean;
   /** Widest the whole pill gets, in em, so its scale can be fitted to the viewport once. */
@@ -122,25 +134,25 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
   about: {
     center: "~About",
     right: emojiSlot("❤️"),
-    extraLeft: backToTop,
-    extraRight: <DismissButton />,
+    ...topControls,
   },
   work: {
     center: "~Index",
-    extraLeft: backToTop,
-    extraRight: <DismissButton />,
+    ...topControls,
   },
   art: {
     center: "~Lots left",
-    right: emojiSlot("🖌️"),
-    extraLeft: backHome,
-    extraRight: <DismissButton />,
+    right: (
+      <div className="flex size-full items-center justify-center rounded-full bg-pop text-on-pop">
+        <SquiggleIcon className="size-[1em]" />
+      </div>
+    ),
+    ...pageControls,
   },
   dev: {
     center: "~Dev",
     right: externalSlot(GITHUB_URL, "All projects on GitHub", "bg-pop text-on-pop"),
-    extraLeft: backHome,
-    extraRight: <DismissButton />,
+    ...pageControls,
   },
   [`project-${expressiveShapes.slug}`]: projectSection(
     expressiveShapes,

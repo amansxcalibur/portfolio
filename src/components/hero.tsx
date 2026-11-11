@@ -13,12 +13,13 @@ export function Hero() {
         <h1 className="animate-rise flex-display text-[clamp(2.75rem,5.2vw,4.75rem)] leading-none [animation-delay:250ms]">
           Aman <em>Valiyakath</em>
         </h1>
+        {/* The radius is half the size, not rounded-full: an infinite radius can't ease to a corner. */}
         <a
           href="#about"
           aria-label="Scroll to about"
-          className="group mt-[clamp(1rem,3svh,2rem)] flex size-11 animate-rise items-center justify-center rounded-full bg-inverse text-on-inverse transition-[border-radius,scale] duration-300 ease-spring [animation-delay:400ms] hover:scale-110 hover:rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-surface"
+          className="group mt-[clamp(1rem,3svh,2rem)] flex size-11 animate-rise items-center justify-center rounded-[1.375rem] bg-inverse text-on-inverse transition-[border-radius,scale] duration-300 ease-spring [animation-delay:400ms] hover:scale-110 hover:rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-surface"
         >
-          <ArrowIcon className="size-4 rotate-135 animate-bob" />
+          <ArrowIcon className="size-4 rotate-135" />
         </a>
       </div>
     </TrackedSection>

@@ -6,7 +6,8 @@ import { usePillAnimation } from "@/hooks/usePillAnimation";
 import { MergeSlot } from "./mergeSlot";
 import { useSection, SECTION_CONFIG } from "./pillConfig";
 
-const SPRING = { type: "spring", stiffness: 380, damping: 34, mass: 0.8 } as const;
+// Same timing as the side slots in MergeSlot (0.4s, CSS "ease"), so the pill and its sides move as one.
+const RESIZE = { duration: 0.07, ease: [0.25, 0.1, 0.25, 1] } as const;
 const LABEL_CLASS = "block w-max animate-pill-label px-[0.7em] py-[0.125em]";
 
 type PillCenterProps = {
@@ -30,14 +31,14 @@ function PillCenter({ id, children, fluid, expanded, onToggle }: PillCenterProps
     if (!box || !el) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // In em, so a viewport-driven font size change never retriggers the spring.
+    // In em, so a viewport-driven font size change never retriggers the resize.
     const measure = () => el.offsetWidth / parseFloat(getComputedStyle(el).fontSize);
     const set = (em: number) => {
       box.style.width = `${em}em`;
     };
 
     let label: string | undefined;
-    let spring: AnimationPlaybackControls | undefined;
+    let resize: AnimationPlaybackControls | undefined;
 
     const observer = new ResizeObserver(() => {
       const next = el.dataset.label;
@@ -47,27 +48,27 @@ function PillCenter({ id, children, fluid, expanded, onToggle }: PillCenterProps
       const first = label === undefined;
       label = next;
 
-      if (first || reducedMotion || (hug && !spring)) {
+      if (first || reducedMotion || (hug && !resize)) {
         set(measure());
         return;
       }
-      // Let the spring to a new label land before hugging; it catches up below.
+      // Let the resize to a new label land before hugging; it catches up below.
       if (hug) return;
 
-      spring?.stop();
+      resize?.stop();
       const from = box.offsetWidth / parseFloat(getComputedStyle(el).fontSize);
-      const controls = animate(from, measure(), { ...SPRING, onUpdate: set });
-      spring = controls;
+      const controls = animate(from, measure(), { ...RESIZE, onUpdate: set });
+      resize = controls;
       controls.finished.then(() => {
-        if (spring !== controls) return;
-        spring = undefined;
+        if (resize !== controls) return;
+        resize = undefined;
         set(measure());
       });
     });
     observer.observe(el);
     return () => {
       observer.disconnect();
-      spring?.stop();
+      resize?.stop();
     };
   }, []);
 
@@ -127,7 +128,7 @@ export default function Pill() {
             : "pointer-events-auto"
         }`}
       >
-        <MergeSlot side="left" level="secondary">
+        <MergeSlot side="left" level="secondary" widthEm={config.extraLeftWidthEm}>
           {config.extraLeft}
         </MergeSlot>
         <MergeSlot side="left" level="primary">

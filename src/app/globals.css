@@ -175,7 +175,7 @@
   --animate-pill-label: pill-label 420ms var(--ease-emphasized);
   --animate-flex-loop: flex-loop 7s var(--ease-emphasized) infinite;
   --animate-rise: rise 900ms var(--ease-emphasized) both;
-  --animate-bob: bob 2.4s ease-in-out infinite;
+  --animate-boil: boil 1.5s step-end infinite;
 }
 
 /* The label arrives condensed and light, then settles into its width. */
@@ -220,9 +220,14 @@
   }
 }
 
-@keyframes bob {
-  50% {
-    translate: 0 0.3em;
+/* One of three stacked frames, shown for a third of the loop: a hand-drawn line at 2fps. */
+@keyframes boil {
+  0% {
+    opacity: 1;
+  }
+  33.33%,
+  100% {
+    opacity: 0;
   }
 }
 

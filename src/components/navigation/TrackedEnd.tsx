@@ -6,8 +6,8 @@ export function TrackedEnd() {
     <TrackedSection
       section="end"
       id="end"
-      // Exactly viewport height or taller, so the pill can finish climbing to center.
-      className="flex min-h-svh flex-col justify-end"
+      // Shorter than the viewport; the pill's climb to center is measured against this height.
+      className="flex min-h-[80svh] flex-col justify-end"
     >
       {/* Equal side columns keep the links centered while the last word flexes. */}
       <footer className="mx-[clamp(1rem,2vw,2rem)] grid border-t border-on-surface/15 grid-cols-[1fr_auto_1fr] items-center gap-x-8 gap-y-3 py-[clamp(1rem,2vw,2rem)] text-[clamp(1rem,1.5vw,1.5rem)] text-on-surface-muted max-sm:grid-cols-1 max-sm:justify-items-center">
