@@ -1,29 +1,154 @@
 @import "tailwindcss";
 
-:root {
-  color-scheme: light dark;
+/*
+ * Color themes. Each one is a complete set: a surface and its ink, the pill
+ * (inverse) with a second ink for accents, and four pop colors for shapes.
+ * The first is the default; the nav's theme chip sets data-theme on <html>.
+ * Keep this list in step with THEMES in src/content/themes.ts.
+ */
+:root,
+[data-theme="cobalt"] {
+  color-scheme: dark;
+  --theme-name: "Cobalt";
+  --surface: #1b34f2;
+  --surface-dim: #1529c9;
+  --on-surface: #f4f6ff;
+  --on-surface-muted: #c3ccff;
+  --inverse: #f4f6ff;
+  --on-inverse: #0b1680;
+  --on-inverse-accent: #ff4d2e;
+  --pop: #ffd84d;
+  --on-pop: #3d2f00;
+  --pop-2: #ff9ecf;
+  --on-pop-2: #5c0a37;
+  --pop-3: #9ff5cf;
+  --pop-4: #ff6a3d;
+}
+
+[data-theme="tangerine"] {
+  color-scheme: light;
+  --theme-name: "Tangerine";
+  --surface: #ff6b2c;
+  --surface-dim: #f25a1a;
+  --on-surface: #2b0b00;
+  --on-surface-muted: #6e2a0c;
+  --inverse: #2b0b00;
+  --on-inverse: #fff0e6;
+  --on-inverse-accent: #ffd23f;
+  --pop: #1f2bd6;
+  --on-pop: #ffffff;
+  --pop-2: #ffe9a8;
+  --on-pop-2: #4a3500;
+  --pop-3: #ffb3d1;
+  --pop-4: #d6ff5c;
+}
+
+[data-theme="lime"] {
+  color-scheme: light;
+  --theme-name: "Lime";
+  --surface: #c8f560;
+  --surface-dim: #b6e648;
+  --on-surface: #11240a;
+  --on-surface-muted: #3f5a22;
+  --inverse: #11240a;
+  --on-inverse: #efffd0;
+  --on-inverse-accent: #ff7cc0;
+  --pop: #ff2e93;
+  --on-pop: #ffffff;
+  --pop-2: #1c5e33;
+  --on-pop-2: #c8f560;
+  --pop-3: #6a3dff;
+  --pop-4: #ffffff;
+}
+
+[data-theme="bubblegum"] {
+  color-scheme: light;
+  --theme-name: "Bubblegum";
+  --surface: #ffadd6;
+  --surface-dim: #ff97ca;
+  --on-surface: #3b0623;
+  --on-surface-muted: #7a2a55;
+  --inverse: #3b0623;
+  --on-inverse: #ffe6f3;
+  --on-inverse-accent: #ffe14d;
+  --pop: #e3172d;
+  --on-pop: #ffffff;
+  --pop-2: #ffe14d;
+  --on-pop-2: #4a3800;
+  --pop-3: #2b4bff;
+  --pop-4: #ffffff;
+}
+
+[data-theme="grape"] {
+  color-scheme: dark;
+  --theme-name: "Grape";
+  --surface: #26104f;
+  --surface-dim: #32186a;
+  --on-surface: #f2e8ff;
+  --on-surface-muted: #b9a3e0;
+  --inverse: #d4ff3f;
+  --on-inverse: #1a0a3a;
+  --on-inverse-accent: #7a2cff;
+  --pop: #ff7ac8;
+  --on-pop: #4a0730;
+  --pop-2: #d4ff3f;
+  --on-pop-2: #263300;
+  --pop-3: #ff9d3c;
+  --pop-4: #5fe3ff;
+}
+
+[data-theme="paper"] {
+  color-scheme: light;
+  --theme-name: "Paper";
+  --surface: #f2ede2;
+  --surface-dim: #e6dfd0;
+  --on-surface: #1b1a17;
+  --on-surface-muted: #5f5a50;
+  --inverse: #1b1a17;
+  --on-inverse: #f2ede2;
+  --on-inverse-accent: #ff7a5c;
+  --pop: #e5432d;
+  --on-pop: #ffffff;
+  --pop-2: #1f3fbf;
+  --on-pop-2: #e8edff;
+  --pop-3: #e8b73a;
+  --pop-4: #8fae8b;
+}
+
+[data-theme="sky"] {
+  color-scheme: light;
+  --theme-name: "Sky";
   --surface: #dbeafe;
   --surface-dim: #c7dbfb;
   --on-surface: #0f172a;
   --on-surface-muted: #475569;
   --inverse: #000000;
   --on-inverse: #ffffff;
-  /* The second ink on the pill, for letters that want to stand out. */
   --on-inverse-accent: #a6f0cb;
-  --glass: rgb(255 255 255 / 0.65);
+  --pop: #2563eb;
+  --on-pop: #ffffff;
+  --pop-2: #a6f0cb;
+  --on-pop-2: #004d36;
+  --pop-3: #ffdad5;
+  --pop-4: #ffe07a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --surface: #0b1120;
-    --surface-dim: #131c33;
-    --on-surface: #e8edf7;
-    --on-surface-muted: #a3b1c6;
-    --inverse: #e8edf7;
-    --on-inverse: #0b1120;
-    --on-inverse-accent: #2563eb;
-    --glass: rgb(19 28 51 / 0.65);
-  }
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --theme-name: "Midnight";
+  --surface: #0b1120;
+  --surface-dim: #131c33;
+  --on-surface: #e8edf7;
+  --on-surface-muted: #a3b1c6;
+  --inverse: #e8edf7;
+  --on-inverse: #0b1120;
+  --on-inverse-accent: #2563eb;
+  --pop: #3b74ff;
+  --on-pop: #ffffff;
+  --pop-2: #a6f0cb;
+  --on-pop-2: #004d36;
+  --pop-3: #ffdad5;
+  --pop-4: #ffe07a;
 }
 
 @theme inline {
@@ -34,15 +159,14 @@
   --color-inverse: var(--inverse);
   --color-on-inverse: var(--on-inverse);
   --color-on-inverse-accent: var(--on-inverse-accent);
-  --color-glass: var(--glass);
-  /* The pop palette: flat Material tonal pairs, the same in light and dark. */
-  --color-pop-blue: #2563eb;
-  --color-mint: #a6f0cb;
-  --color-on-mint: #00392a;
-  --color-peach: #ffdad5;
-  --color-on-peach: #561e19;
-  --color-sun: #ffe07a;
-  --color-on-sun: #4a3800;
+  /* Tinted from the ink, so the nav chips sit on any surface. */
+  --color-glass: color-mix(in oklab, var(--on-surface) 10%, transparent);
+  --color-pop: var(--pop);
+  --color-on-pop: var(--on-pop);
+  --color-pop-2: var(--pop-2);
+  --color-on-pop-2: var(--on-pop-2);
+  --color-pop-3: var(--pop-3);
+  --color-pop-4: var(--pop-4);
   --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
@@ -127,7 +251,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--color-pop-blue) 35%, transparent);
+  background: color-mix(in oklab, var(--pop) 40%, transparent);
 }
 
 /* Rounded terminals only where the type sits next to the shapes (the pill). */

@@ -42,7 +42,7 @@ export default function AboutMe() {
             <Link
               href="/art"
               {...focusOn("art")}
-              className={`${inlineLinkClass} decoration-pop-blue/40 hover:text-pop-blue dark:hover:text-blue-400`}
+              className={`${inlineLinkClass} decoration-pop hover:text-pop`}
             >
               <span className={`${chipClass} aspect-[4/3] -rotate-6 group-hover/word:rotate-3`}>
                 <LoopVideo
@@ -57,10 +57,10 @@ export default function AboutMe() {
             <Link
               href="/dev"
               {...focusOn("code")}
-              className={`${inlineLinkClass} decoration-[#00795a]/40 hover:text-[#00795a] dark:hover:text-mint`}
+              className={`${inlineLinkClass} decoration-pop-2 hover:text-pop`}
             >
               <span
-                className={`${chipClass} aspect-square rotate-6 bg-[#a6f0cb] p-[0.06em] text-[#004d36] group-hover/word:-rotate-6`}
+                className={`${chipClass} aspect-square rotate-6 bg-pop-2 p-[0.06em] text-on-pop-2 group-hover/word:-rotate-6`}
               >
                 <ShapeMorph tempo="loader" className="size-full" />
               </span>

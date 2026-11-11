@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GITHUB_URL } from "@/content/links";
 import Pill from "./pill";
+import { ThemeSwitch } from "./themeSwitch";
 
 const NAV_LINKS = [
   { label: "contact", href: "#end" },
@@ -27,6 +28,7 @@ export default function NavOverlay() {
           aman<span className="max-sm:hidden"> valiyakath</span>
         </Link>
         <div className="flex items-start gap-1">
+          <ThemeSwitch className={linkClass} />
           {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={label}

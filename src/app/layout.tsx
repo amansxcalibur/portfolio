@@ -3,6 +3,7 @@ import { Google_Sans_Flex, Instrument_Serif, JetBrains_Mono } from "next/font/go
 import NavOverlay from "@/components/navigation/navOverlay";
 import { SectionProvider } from "@/components/navigation/pillConfig";
 import { TrackedEnd } from "@/components/navigation/TrackedEnd";
+import { THEME_INIT_SCRIPT } from "@/content/themes";
 import "./globals.css";
 
 // Every axis, not just weight: width, slant, grade and roundness drive the
@@ -50,9 +51,13 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
+      // The inline script below sets data-theme before React hydrates.
+      suppressHydrationWarning
       className={`${googleSansFlex.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        {/* Runs while the HTML is parsed, so a saved theme is in place before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <SectionProvider>
           <NavOverlay />
           {children}

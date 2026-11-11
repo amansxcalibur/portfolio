@@ -16,7 +16,7 @@ export function PageHeader({ eyebrow, title, lead, shapeStart = 0 }: PageHeaderP
     <header className="relative px-[clamp(0.25rem,2vw,2rem)] pt-36 pb-[clamp(2rem,4vw,4rem)]">
       <ShapeMorph
         startAt={shapeStart}
-        className="absolute top-28 right-[clamp(0.25rem,2vw,2rem)] size-[clamp(4.5rem,12vw,10rem)] text-pop-blue"
+        className="absolute top-28 right-[clamp(0.25rem,2vw,2rem)] size-[clamp(4.5rem,12vw,10rem)] text-pop"
       />
 
       <p className="eyebrow relative animate-rise">{eyebrow}</p>

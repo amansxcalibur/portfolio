@@ -109,7 +109,7 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
     fluid: true,
     fitEm: FLEX_NAME_MAX_EM + START_CHROME_EM,
     left: (
-      <div className="flex size-full items-center justify-center rounded-full bg-[#a6f0cb] text-[#004d36]">
+      <div className="flex size-full items-center justify-center rounded-full bg-pop-2 text-on-pop-2">
         <ShapeMorph tempo="loader" className="size-[78%]" />
       </div>
     ),
@@ -138,7 +138,7 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
   },
   dev: {
     center: "~Dev",
-    right: externalSlot(GITHUB_URL, "All projects on GitHub", "bg-blue-600 text-white"),
+    right: externalSlot(GITHUB_URL, "All projects on GitHub", "bg-pop text-on-pop"),
     extraLeft: backHome,
     extraRight: <DismissButton />,
   },
