@@ -89,10 +89,10 @@ export function SelectedWork() {
       id="work"
       className="flex justify-center px-[clamp(1.25rem,5vw,6rem)] pb-32"
     >
-      <div className="grid w-full max-w-6xl gap-x-12 gap-y-8 md:grid-cols-[10rem_1fr]">
-        <p className="font-mono text-xs tracking-wide text-on-surface-muted uppercase md:pt-6">
-          (02) Selected work
-        </p>
+      <div className="w-full max-w-6xl">
+        <h2 className="mb-6 font-round text-[clamp(1.25rem,1.8vw,1.6rem)] font-medium tracking-tight text-on-surface-muted">
+          Selected work
+        </h2>
 
         <ol className="border-t border-on-surface/15">
           {ENTRIES.map((entry, index) => (
@@ -107,7 +107,7 @@ export function SelectedWork() {
 
                 <span className="min-w-0">
                   <span className="flex items-center gap-3">
-                    <span className="truncate font-serif text-[clamp(1.6rem,2.6vw,2.4rem)] leading-tight transition-[font-style,translate] duration-300 group-hover/row:translate-x-1 group-hover/row:italic">
+                    <span className="truncate text-[clamp(1.5rem,2.4vw,2.2rem)] leading-tight font-medium tracking-tight transition-[font-weight,translate] duration-300 group-hover/row:translate-x-1 group-hover/row:font-bold">
                       {entry.title}
                     </span>
                     <span

@@ -44,6 +44,14 @@
   }
 }
 
+/* A slow swell and fade, for glows that should feel alive. */
+@keyframes breathe {
+  50% {
+    scale: 1.05;
+    opacity: 0.75;
+  }
+}
+
 @keyframes shape-spin {
   to {
     rotate: 360deg;
