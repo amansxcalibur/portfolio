@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ProjectCard, type ProjectTheme } from "@/components/dev/projectCard";
+import { ZenithLogo } from "@/components/dev/zenithLogo";
 import { ArrowIcon } from "@/components/icons";
 import { TrackedSection } from "@/components/navigation/TrackedSection";
 import { PageHeader } from "@/components/pageHeader";
@@ -78,8 +79,13 @@ export default function Dev() {
         </figure>
       </ProjectCard>
 
-      <ProjectCard project={zenithShell} theme={themes.zenith} layout="stacked">
-        {/* Three 16:9 thumbs stacked in one column match the height of a 16:9 image three columns wide. */}
+      <ProjectCard
+        project={zenithShell}
+        theme={themes.zenith}
+        layout="stacked"
+        aside={<ZenithLogo className="h-full max-w-full [--logo-bg:#ffdad5]" />}
+      >
+        {/* Three 16:9 thumbs and their gaps run a few pixels taller than a 16:9 image three columns wide, so the large one fills the rows and crops to match. */}
         <div className="grid gap-2 sm:grid-cols-4">
           <Image
             src={`${ZENITH_SCREENSHOTS}/dashboard-m3-2.png`}
@@ -87,7 +93,7 @@ export default function Dev() {
             width={1920}
             height={1080}
             sizes="(min-width: 1152px) 800px, 95vw"
-            className="h-auto w-full rounded-lg sm:col-span-3 sm:row-span-3"
+            className="h-auto w-full rounded-lg object-cover sm:col-span-3 sm:row-span-3 sm:h-full"
           />
           {zenithGallery.map(({ file, alt }) => (
             <Image

@@ -13,19 +13,21 @@ type PageHeaderProps = {
 /** The opening of every inner page: label, headline, one line, and a shape. */
 export function PageHeader({ eyebrow, title, lead, shapeStart = 0 }: PageHeaderProps) {
   return (
-    <header className="relative px-[clamp(0.25rem,2vw,2rem)] pt-36 pb-[clamp(2rem,4vw,4rem)]">
-      <ShapeMorph
-        startAt={shapeStart}
-        className="absolute top-28 right-[clamp(0.25rem,2vw,2rem)] size-[clamp(4.5rem,12vw,10rem)] text-pop"
-      />
+    <header className="px-[clamp(0.25rem,2vw,2rem)] pt-36 pb-[clamp(2rem,4vw,4rem)]">
+      {/* The shape is centered against the text block. On phones it stays up in the corner, clear of the title. */}
+      <div className="relative">
+        <div className="pointer-events-none absolute right-0 flex items-center max-sm:-top-8 sm:inset-y-0">
+          <ShapeMorph startAt={shapeStart} className="size-[clamp(4.5rem,12vw,10rem)] text-pop" />
+        </div>
 
-      <p className="eyebrow relative animate-rise">{eyebrow}</p>
-      <h1 className="relative mt-3 animate-rise flex-display text-[clamp(3.25rem,7.5vw,7rem)] leading-[0.95] [animation-delay:80ms]">
-        {title}
-      </h1>
-      <p className="relative mt-4 max-w-xl animate-rise text-[clamp(1rem,1.3vw,1.2rem)] text-on-surface-muted [animation-delay:160ms]">
-        {lead}
-      </p>
+        <p className="eyebrow relative animate-rise">{eyebrow}</p>
+        <h1 className="relative mt-3 animate-rise flex-display text-[clamp(3.25rem,7.5vw,7rem)] leading-[0.95] [animation-delay:80ms]">
+          {title}
+        </h1>
+        <p className="relative mt-4 max-w-xl animate-rise text-[clamp(1rem,1.3vw,1.2rem)] text-on-surface-muted [animation-delay:160ms]">
+          {lead}
+        </p>
+      </div>
     </header>
   );
 }

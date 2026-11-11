@@ -55,9 +55,4 @@ export const bunkmate: Project = {
     { label: "bunkmate.in", href: "https://www.bunkmate.in" },
     { label: "GitHub", href: "https://github.com/Bunk-Mate/Website" },
   ],
-  credits: [
-    { label: "Website by me" },
-    { label: "Backend by Hridesh MG", href: "https://github.com/hrideshmg" },
-    { label: "Mobile app by Gautham Mohanraj", href: "https://github.com/angrezichatterbox" },
-  ],
 };

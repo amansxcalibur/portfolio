@@ -1,4 +1,4 @@
-import { SOCIAL_LINKS } from "@/content/links";
+import { EMAIL, SOCIAL_LINKS } from "@/content/links";
 import { TrackedSection } from "./TrackedSection";
 
 export function TrackedEnd() {
@@ -13,6 +13,14 @@ export function TrackedEnd() {
       <footer className="mx-[clamp(1rem,2vw,2rem)] grid border-t border-on-surface/15 grid-cols-[1fr_auto_1fr] items-center gap-x-8 gap-y-3 py-[clamp(1rem,2vw,2rem)] text-[clamp(1rem,1.5vw,1.5rem)] text-on-surface-muted max-sm:grid-cols-1 max-sm:justify-items-center">
         <p>&copy; 2026 Aman Valiyakath</p>
         <ul className="flex flex-wrap justify-center gap-x-[clamp(1rem,3vw,3rem)]">
+          <li>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="underline-offset-4 transition-colors hover:text-on-surface hover:underline"
+            >
+              Email
+            </a>
+          </li>
           {SOCIAL_LINKS.filter(({ href }) => href).map(({ label, href }) => (
             <li key={label}>
               <a
