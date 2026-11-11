@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { FLEX_NAME_MAX_EM, FlexName } from "@/components/flexName";
 import { ArrowIcon, CloseIcon, SquiggleIcon } from "@/components/icons";
+import { HashLink } from "./hashLink";
 import { ShapeMorph } from "@/components/shapes/shapeMorph";
 import { GITHUB_URL } from "@/content/links";
 import {
@@ -43,9 +44,9 @@ function Controls({ backToTop = false }: { backToTop?: boolean }) {
       className={`flex size-full items-center rounded-full shadow-[0_0_0_1px_rgb(255_255_255/0.2)] ${extraColors}`}
     >
       {backToTop && (
-        <Link href="#start" aria-label="Back to top" className={controlClass}>
+        <HashLink to="start" aria-label="Back to top" className={controlClass}>
           <ArrowIcon className={`${iconClass} -rotate-45`} />
-        </Link>
+        </HashLink>
       )}
       <button
         type="button"
@@ -126,9 +127,9 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
       </div>
     ),
     extraRight: (
-      <Link href="#about" aria-label="Scroll to about" className={`${slotClass} ${extraColors}`}>
+      <HashLink to="about" aria-label="Scroll to about" className={`${slotClass} ${extraColors}`}>
         <ArrowIcon className={`${iconClass} rotate-135`} />
-      </Link>
+      </HashLink>
     ),
   },
   about: {
