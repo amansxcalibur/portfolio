@@ -2,24 +2,43 @@
 
 :root {
   color-scheme: light dark;
-  --surface: #dbeafe;
-  --surface-dim: #c7dbfb;
-  --on-surface: #0f172a;
-  --on-surface-muted: #475569;
-  --inverse: #000000;
-  --on-inverse: #ffffff;
-  --glass: rgb(255 255 255 / 0.65);
+  --surface: #e9eefb;
+  --surface-dim: #dbe3f6;
+  --on-surface: #0d1222;
+  --on-surface-muted: #4a5470;
+  --inverse: #07080d;
+  --on-inverse: #f6f7fb;
+  /* The second ink on the pill, for letters that want to stand out. */
+  --on-inverse-accent: #dcbcff;
+  --glass: rgb(255 255 255 / 0.6);
+
+  /* The light the site is lit with: one spectrum, used by every glow. */
+  --glow-blue: #3b6dff;
+  --glow-violet: #8f5bff;
+  --glow-pink: #ee5fb7;
+  --glow-amber: #ffab4a;
+  --glow-green: #2fc98b;
+  --glow-strength: 0.6;
+  --grain-opacity: 0.05;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --surface: #0b1120;
-    --surface-dim: #131c33;
-    --on-surface: #e8edf7;
-    --on-surface-muted: #a3b1c6;
-    --inverse: #e8edf7;
-    --on-inverse: #0b1120;
-    --glass: rgb(19 28 51 / 0.65);
+    --surface: #07080d;
+    --surface-dim: #11131c;
+    --on-surface: #eceef6;
+    --on-surface-muted: #9aa3ba;
+    --inverse: #f3f4fa;
+    --on-inverse: #07080d;
+    --on-inverse-accent: #6a3df0;
+    --glass: rgb(22 25 38 / 0.6);
+    --glow-blue: #4f7cff;
+    --glow-violet: #9b6bff;
+    --glow-pink: #f06bc4;
+    --glow-amber: #ffb35c;
+    --glow-green: #4fdc9f;
+    --glow-strength: 0.9;
+    --grain-opacity: 0.07;
   }
 }
 
@@ -30,17 +49,70 @@
   --color-on-surface-muted: var(--on-surface-muted);
   --color-inverse: var(--inverse);
   --color-on-inverse: var(--on-inverse);
+  --color-on-inverse-accent: var(--on-inverse-accent);
   --color-glass: var(--glass);
+  --color-glow-blue: var(--glow-blue);
+  --color-glow-violet: var(--glow-violet);
+  --color-glow-pink: var(--glow-pink);
+  --color-glow-amber: var(--glow-amber);
+  --color-glow-green: var(--glow-green);
   --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
-  --animate-pill-label: pill-label 280ms ease-out;
+  /* Material 3 expressive: a spring with overshoot, and its calmer sibling. */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --animate-pill-label: pill-label 420ms var(--ease-emphasized);
+  --animate-flex-loop: flex-loop 7s var(--ease-emphasized) infinite;
+  --animate-rise: rise 900ms var(--ease-emphasized) both;
+  --animate-bob: bob 2.4s ease-in-out infinite;
 }
 
+/* The label arrives condensed and light, then settles into its width. */
 @keyframes pill-label {
   from {
     opacity: 0;
     filter: blur(10px);
+    font-variation-settings: "wght" 200, "wdth" 60, "ROND" 100;
+  }
+  to {
+    font-variation-settings: "wght" 400, "wdth" 100, "ROND" 100;
+  }
+}
+
+/* One word running through the typeface's range. Axes stay in the same order so they interpolate. */
+@keyframes flex-loop {
+  0%,
+  12%,
+  100% {
+    font-variation-settings: "wght" 400, "wdth" 100, "slnt" 0, "ROND" 0;
+  }
+  25%,
+  37% {
+    font-variation-settings: "wght" 900, "wdth" 140, "slnt" 0, "ROND" 100;
+  }
+  50%,
+  62% {
+    font-variation-settings: "wght" 200, "wdth" 40, "slnt" -10, "ROND" 0;
+  }
+  75%,
+  87% {
+    font-variation-settings: "wght" 700, "wdth" 75, "slnt" -10, "ROND" 100;
+  }
+}
+
+/* Text entering: it rises, sharpens and tightens from wide and thin. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 0.6em;
+    filter: blur(8px);
+  }
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 0.3em;
   }
 }
 
@@ -49,6 +121,18 @@
   50% {
     scale: 1.05;
     opacity: 0.75;
+  }
+}
+
+/* Light drifting behind a horizon. Transform only, so it stays on the compositor. */
+@keyframes aurora-drift {
+  from {
+    translate: -54% -48%;
+    scale: 1;
+  }
+  to {
+    translate: -46% -58%;
+    scale: 1.12 1.28;
   }
 }
 
@@ -62,14 +146,68 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+/* Film grain over everything, so the gradients read as light rather than as CSS. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: color-mix(in oklab, var(--glow-violet) 45%, transparent);
+}
+
 /* Rounded terminals only where the type sits next to the shapes (the pill). */
 @utility font-round {
   font-variation-settings: "ROND" 100;
 }
 
-body {
-  background: var(--surface);
-  color: var(--on-surface);
+/* Small caps-and-mono label that opens a page or a section. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-surface-muted);
+}
+
+/*
+ * Words that brighten and gain grade as the pointer nears (see FlexWords).
+ * Grade and roundness don't change a glyph's width, so nothing reflows.
+ */
+@utility flex-word {
+  color: color-mix(in oklab, var(--on-surface) calc(68% + var(--near, 0) * 32%), transparent);
+  font-variation-settings:
+    "GRAD" calc(var(--near, 0) * 100),
+    "ROND" calc(var(--near, 0) * 100);
+  transition:
+    font-variation-settings 300ms ease-out,
+    color 300ms ease-out;
+}
+
+/* The spectrum as a hairline, for dividers. */
+@utility rule-glow {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glow-blue),
+    var(--glow-violet),
+    var(--glow-pink),
+    var(--glow-amber),
+    transparent
+  );
+  opacity: 0.6;
 }
 
 @media (prefers-reduced-motion: reduce) {

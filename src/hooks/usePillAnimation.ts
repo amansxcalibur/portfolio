@@ -37,7 +37,10 @@ export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
       const { innerWidth, innerHeight } = window;
       const { offsetWidth, offsetHeight } = pill;
 
-      const fit = (innerWidth - VIEWPORT_MARGIN_PX) / offsetWidth;
+      // A label that animates its width declares its widest, so the scale holds still.
+      const fitEm = Number(pill.dataset.fitEm) || 0;
+      const widest = Math.max(offsetWidth, fitEm * parseFloat(getComputedStyle(pill).fontSize));
+      const fit = (innerWidth - VIEWPORT_MARGIN_PX) / widest;
       const fullScale = Math.min(MAX_SCALE, fit);
       const restScale = Math.min(REST_SCALE, fit);
       const centerY = -(innerHeight - offsetHeight * fullScale) / 2;

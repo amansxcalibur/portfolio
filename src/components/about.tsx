@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { FlexWords, words } from "@/components/flexWords";
 import { LoopVideo } from "@/components/loopVideo";
 import { TrackedSection } from "@/components/navigation/TrackedSection";
 import { ShapeGlow, type GlowFocus } from "@/components/shapes/shapeGlow";
@@ -35,12 +36,13 @@ export default function AboutMe() {
         <ShapeGlow focus={focus} className="w-full max-md:mx-auto max-md:max-w-[22rem]" />
 
         <div>
-          <p className="text-[clamp(1.6rem,2.9vw,2.75rem)] leading-[1.15] font-[450] tracking-tight text-on-surface">
-            I enjoy exploring the intersection of{" "}
+          <p className="eyebrow mb-5">About</p>
+          <FlexWords className="text-[clamp(1.6rem,2.9vw,2.75rem)] leading-[1.15] font-[450] tracking-tight text-on-surface">
+            {words("I enjoy exploring the intersection of")}{" "}
             <Link
               href="/art"
               {...focusOn("art")}
-              className={`${inlineLinkClass} decoration-blue-600/40 hover:text-blue-600`}
+              className={`${inlineLinkClass} decoration-glow-blue/50 hover:text-glow-blue`}
             >
               <span className={`${chipClass} aspect-[4/3] -rotate-6 group-hover/word:rotate-3`}>
                 <LoopVideo
@@ -51,11 +53,11 @@ export default function AboutMe() {
               </span>
               <em className="font-serif text-[1.08em] tracking-normal">art</em>
             </Link>{" "}
-            and{" "}
+            {words("and")}{" "}
             <Link
               href="/dev"
               {...focusOn("code")}
-              className={`${inlineLinkClass} decoration-[#00795a]/40 hover:text-[#00795a]`}
+              className={`${inlineLinkClass} decoration-glow-green/60 hover:text-[#00795a] dark:hover:text-glow-green`}
             >
               <span
                 className={`${chipClass} aspect-square rotate-6 bg-[#a6f0cb] p-[0.06em] text-[#004d36] group-hover/word:-rotate-6`}
@@ -64,13 +66,15 @@ export default function AboutMe() {
               </span>
               <span className="font-mono text-[0.78em] tracking-tight">programming</span>
             </Link>
-            . Whether I’m building desktop environments and UI tooling for Linux
-            or experimenting with visual art and animation, I’m drawn to whatever
-            lets me <strong className="font-semibold">combine engineering with creative expression.</strong>
-          </p>
+            {words(
+              ". Whether I’m building desktop environments and UI tooling for Linux or experimenting with visual art and animation, I’m drawn to whatever lets me",
+            )}{" "}
+            <strong className="font-semibold">combine engineering with creative expression.</strong>
+          </FlexWords>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3 text-[clamp(0.95rem,1.1vw,1.1rem)] text-on-surface-muted">
-            <span className="inline-block -rotate-2 rounded-md bg-inverse px-2.5 py-1 font-mono text-xs tracking-wide text-on-inverse uppercase">
+          <div className="rule-glow mt-10 w-full" />
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-[clamp(0.95rem,1.1vw,1.1rem)] text-on-surface-muted">
+            <span className="inline-block -rotate-2 rounded-full bg-inverse px-3 py-1 font-mono text-xs tracking-wide text-on-inverse uppercase">
               Currently
             </span>
             exploring software, expressive interfaces &amp; motion.

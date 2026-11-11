@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { LoopVideo } from "@/components/loopVideo";
 import { TrackedSection } from "@/components/navigation/TrackedSection";
-import { ShapeMorph } from "@/components/shapes/shapeMorph";
+import { PageHeader } from "@/components/pageHeader";
 import endorsi from "../../../public/krita/endorsi.png";
 
 export const metadata: Metadata = {
@@ -11,23 +11,24 @@ export const metadata: Metadata = {
 };
 
 // Same rounding as the project cards on /dev.
-const mediaClass = "block w-full rounded-[clamp(1rem,2vw,1.75rem)] bg-white";
+const mediaClass =
+  "block w-full rounded-[clamp(1rem,2vw,1.75rem)] bg-white ring-1 ring-on-surface/10";
 const gap = "gap-3";
 
 export default function Art() {
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-[clamp(0.75rem,2vw,1.5rem)]">
       <TrackedSection section="art">
-        {/* Header mirrors /dev: the shape top right, a sans headline with a serif accent. */}
-        <header className="relative px-[clamp(0.25rem,2vw,2rem)] pt-36 pb-[clamp(2rem,4vw,4rem)]">
-          <ShapeMorph
-            startAt={6}
-            className="absolute top-28 right-[clamp(0.25rem,2vw,2rem)] size-[clamp(4.5rem,12vw,10rem)] text-blue-600"
-          />
-          <h1 className="relative text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95] font-medium tracking-tight">
-            Krita <em className="font-serif font-normal tracking-normal">my beloved</em>
-          </h1>
-        </header>
+        <PageHeader
+          eyebrow="Art / Krita"
+          title={
+            <>
+              Krita, <em>my beloved</em>
+            </>
+          }
+          lead="Sketches, paintings and line tests. Mostly unfinished, all made in Krita."
+          shapeStart={6}
+        />
 
         {/* Sized by priority: the painting leads, then the portrait beside the two line tests. */}
         <div className={`flex flex-col ${gap}`}>

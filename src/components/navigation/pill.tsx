@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { animate, type AnimationPlaybackControls } from "motion/react";
 import { usePillAnimation } from "@/hooks/usePillAnimation";
 import { MergeSlot } from "./mergeSlot";
 import { useSection, SECTION_CONFIG } from "./pillConfig";
@@ -12,54 +12,101 @@ const LABEL_CLASS = "block w-max animate-pill-label px-[0.7em] py-[0.125em]";
 type PillCenterProps = {
   id: string;
   children: ReactNode;
+  /** The label keeps changing width (animated type), so the pill hugs it frame by frame. */
+  fluid?: boolean;
+  /** A soft spectrum glow under the pill, for when it takes center stage. */
+  aura?: boolean;
   /** Present when the section has extras to reveal, for touch and keyboard. */
   expanded?: boolean;
   onToggle?: () => void;
 };
 
-function PillCenter({ id, children, expanded, onToggle }: PillCenterProps) {
+function PillCenter({ id, children, fluid, aura, expanded, onToggle }: PillCenterProps) {
+  const boxRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
-  // In em, so a viewport-driven font size change never retriggers the spring.
-  const [width, setWidth] = useState<{ em: number; snap: boolean } | null>(null);
 
+  // The width is driven outside React: a fluid label resizes on every frame.
   useEffect(() => {
+    const box = boxRef.current;
     const el = contentRef.current;
-    if (!el) return;
+    if (!box || !el) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // In em, so a viewport-driven font size change never retriggers the spring.
+    const measure = () => el.offsetWidth / parseFloat(getComputedStyle(el).fontSize);
+    const set = (em: number) => {
+      box.style.width = `${em}em`;
+    };
+
+    let label: string | undefined;
+    let spring: AnimationPlaybackControls | undefined;
+
     const observer = new ResizeObserver(() => {
-      const em = el.offsetWidth / parseFloat(getComputedStyle(el).fontSize);
+      const next = el.dataset.label;
+      const sameLabel = next === label;
+      const hug = sameLabel && el.dataset.fluid === "true";
       // Snap on first measurement so the pill doesn't grow in from nothing.
-      setWidth((previous) => ({ em, snap: previous === null }));
+      const first = label === undefined;
+      label = next;
+
+      if (first || reducedMotion || (hug && !spring)) {
+        set(measure());
+        return;
+      }
+      // Let the spring to a new label land before hugging; it catches up below.
+      if (hug) return;
+
+      spring?.stop();
+      const from = box.offsetWidth / parseFloat(getComputedStyle(el).fontSize);
+      const controls = animate(from, measure(), { ...SPRING, onUpdate: set });
+      spring = controls;
+      controls.finished.then(() => {
+        if (spring !== controls) return;
+        spring = undefined;
+        set(measure());
+      });
     });
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      spring?.stop();
+    };
   }, []);
 
   return (
-    <motion.div
-      initial={false}
-      animate={width ? { width: `${width.em}em` } : undefined}
-      transition={width?.snap || reducedMotion ? { duration: 0 } : SPRING}
-      className="relative z-10 shrink-0 overflow-hidden rounded-full bg-inverse leading-[1.5] tracking-wide text-on-inverse shadow-[0_0_0_1px_rgb(255_255_255/0.2)]"
-    >
-      <div ref={contentRef} className="w-max">
-        {onToggle ? (
-          <button
-            key={id}
-            type="button"
-            aria-expanded={expanded}
-            onClick={onToggle}
-            className={`${LABEL_CLASS} cursor-pointer focus-visible:underline focus-visible:outline-none`}
-          >
-            {children}
-          </button>
-        ) : (
-          <div key={id} className={LABEL_CLASS}>
-            {children}
-          </div>
-        )}
+    <div className="relative z-10 shrink-0">
+      {/* Opacity lives on the wrapper: the breathing inside animates its own. */}
+      <div
+        aria-hidden="true"
+        className={`absolute inset-x-[0.2em] top-[35%] -bottom-[0.14em] -z-10 transition-opacity duration-700 ${
+          aura ? "opacity-(--glow-strength)" : "opacity-0"
+        }`}
+      >
+        <div className="size-full animate-[breathe_6s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,var(--glow-blue),var(--glow-violet),var(--glow-pink),var(--glow-amber))] blur-[0.3em]" />
       </div>
-    </motion.div>
+      <div
+        ref={boxRef}
+        className="overflow-hidden rounded-full bg-inverse leading-[1.5] tracking-wide text-on-inverse shadow-[0_0_0_1px_rgb(255_255_255/0.2)]"
+      >
+        <div ref={contentRef} data-label={id} data-fluid={fluid} className="w-max">
+          {onToggle ? (
+            <button
+              key={id}
+              type="button"
+              aria-expanded={expanded}
+              onClick={onToggle}
+              className={`${LABEL_CLASS} cursor-pointer focus-visible:underline focus-visible:outline-none`}
+            >
+              {children}
+            </button>
+          ) : (
+            <div key={id} className={LABEL_CLASS}>
+              {children}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -79,6 +126,7 @@ export default function Pill() {
   return (
     <div
       ref={pillRef}
+      data-fit-em={config.fitEm}
       // Hidden until usePillAnimation has placed it, then positioned by inline style.
       className="pointer-events-none fixed bottom-0 left-1/2 z-50 origin-bottom font-round text-[clamp(2rem,4.4vw,4rem)] whitespace-nowrap opacity-0"
     >
@@ -100,6 +148,8 @@ export default function Pill() {
         </MergeSlot>
         <PillCenter
           id={activeSection}
+          fluid={config.fluid}
+          aura={config.aura}
           expanded={hasExtras ? expanded : undefined}
           onToggle={
             hasExtras
