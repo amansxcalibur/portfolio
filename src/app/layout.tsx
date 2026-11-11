@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Google_Sans_Flex, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Google_Sans_Flex, JetBrains_Mono } from "next/font/google";
 import NavOverlay from "@/components/navigation/navOverlay";
 import { SectionProvider } from "@/components/navigation/pillConfig";
 import { TrackedEnd } from "@/components/navigation/TrackedEnd";
@@ -15,15 +15,6 @@ const googleSansFlex = Google_Sans_Flex({
   display: "swap",
   // Next has no fallback metrics for this family yet, and warns on every build.
   adjustFontFallback: false,
-});
-
-// Display serif for headings: the classy half of the pairing.
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
-  display: "swap",
 });
 
 // Small labels, indices and code.
@@ -53,7 +44,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       // The inline script below sets data-theme before React hydrates.
       suppressHydrationWarning
-      className={`${googleSansFlex.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${googleSansFlex.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         {/* Runs while the HTML is parsed, so a saved theme is in place before first paint. */}

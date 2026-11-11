@@ -7,14 +7,6 @@ const nextConfig: NextConfig = {
     // Zenith Shell screenshots, hosted in the zenith-resources repo.
     remotePatterns: [new URL("https://amansxcalibur.github.io/zenith-resources/**")],
   },
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
 };
 
 export default nextConfig;

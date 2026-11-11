@@ -51,7 +51,7 @@ export default function AboutMe() {
                   className="size-full object-cover"
                 />
               </span>
-              <em className="font-serif text-[1.08em] tracking-normal">art</em>
+              <em className="flex-accent font-semibold">art</em>
             </Link>{" "}
             {words("and")}{" "}
             <Link

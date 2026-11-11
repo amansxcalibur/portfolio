@@ -123,7 +123,7 @@ export default function Dev() {
           href={GITHUB_URL}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 font-serif text-[clamp(1.5rem,2.2vw,2rem)] italic underline-offset-8 hover:underline"
+          className="inline-flex items-center gap-2 flex-accent text-[clamp(1.25rem,2vw,1.75rem)] font-medium underline-offset-8 hover:underline"
         >
           Everything else on GitHub
           <ArrowIcon />

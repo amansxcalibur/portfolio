@@ -10,7 +10,7 @@ export function Hero() {
       className="relative flex h-svh flex-col items-center justify-end overflow-hidden pb-[clamp(1.5rem,5svh,3.5rem)] text-center"
     >
       <div className="relative flex flex-col items-center px-4">
-        <h1 className="animate-rise font-serif text-[clamp(2.25rem,4.2vw,3.75rem)] leading-none [animation-delay:250ms]">
+        <h1 className="animate-rise flex-display text-[clamp(2.75rem,5.2vw,4.75rem)] leading-none [animation-delay:250ms]">
           Aman <em>Valiyakath</em>
         </h1>
         <a

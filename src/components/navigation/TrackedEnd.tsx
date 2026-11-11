@@ -27,7 +27,7 @@ export function TrackedEnd() {
           ))}
         </ul>
         <p className="whitespace-nowrap sm:text-right">
-          <em className="font-serif text-[1.15em]">Be</em>{" "}
+          <em className="flex-accent">Be</em>{" "}
           <span className="inline-block animate-flex-loop text-on-surface">expressive</span>
         </p>
       </footer>

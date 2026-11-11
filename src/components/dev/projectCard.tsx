@@ -50,7 +50,7 @@ export async function ProjectCard({
           <div className={layout === "stacked" ? "max-w-2xl" : ""}>
             <h2
               id={`${project.slug}-title`}
-              className="font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-none"
+              className="flex-display text-[clamp(1.875rem,3.4vw,3rem)] leading-none"
             >
               {project.name}
             </h2>
