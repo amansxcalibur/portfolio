@@ -8,12 +8,7 @@ type LoopVideoProps = {
   className?: string;
 };
 
-/**
- * Muted looping video that plays only while on screen and respects reduced
- * motion. There is no autoplay attribute: it would make the browser download
- * the whole file up front, even far below the fold. Until then only the
- * metadata and first frame load.
- */
+// no autoplay attribute on purpose cuz apparently it makes the browser download the whole file up front
 export function LoopVideo({ src, label, className }: LoopVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -24,11 +19,10 @@ export function LoopVideo({ src, label, className }: LoopVideoProps) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Autoplay can be refused (e.g. battery saver). The first frame still shows.
         if (entry.isIntersecting) video.play().catch(() => {});
         else video.pause();
       },
-      // Start a little early so the clip is moving by the time it is seen.
+      // start a bit early so it's already moving when seen
       { rootMargin: "200px 0px" },
     );
     observer.observe(video);

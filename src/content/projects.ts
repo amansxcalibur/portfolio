@@ -4,11 +4,11 @@ export type ProjectCredit = { label: string; href?: string };
 export type Project = {
   slug: string;
   name: string;
-  /** Short label shown in the floating pill while this project is on screen. */
+  /** short label for the floating pill while this project is on screen */
   pillLabel: string;
   tagline: string;
   description: string;
-  /** `owner/name`. The source of the live star count. */
+  /** `owner/name`, used for the live star count */
   repo: string;
   facts: string[];
   links: ProjectLink[];
@@ -21,7 +21,7 @@ export const expressiveShapes: Project = {
   pillLabel: "~Shapes",
   tagline: "Expressive shape morphing and animation for everyone.",
   description:
-    "A pure-Python library for creating, rounding and morphing polygons with cubic Bézier curves, inspired by Android’s Material Design shape system. It outputs plain curves, so you can render them with Cairo, SVG, Canvas or anything else that draws paths.",
+    "A pure-Python library for creating, rounding and morphing polygons with cubic Bézier curves, inspired by Android's Material Design shape system. It outputs plain curves, so you can render them with Cairo, SVG, Canvas or anything else that draws paths.",
   repo: "amansxcalibur/expressive-shapes",
   facts: ["Python", "Zero dependencies", "30+ preset shapes"],
   links: [

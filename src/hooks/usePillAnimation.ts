@@ -7,15 +7,15 @@ const REST_SCALE = 1;
 const REST_OFFSET_PX = 24;
 const MAX_SCALE = 2;
 const VIEWPORT_MARGIN_PX = 32;
-/** The pill stays centered until the bottom of #start rises above this fraction of the viewport. */
+/** the pill stays centered until the bottom of #start rises above this fraction of the viewport */
 const START_RELEASE = 0.8;
 const TRANSITION = "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
 
 const lerp = (from: number, to: number, t: number) => from + (to - from) * t;
 
 /**
- * Drives the floating pill. It is centered and large over #start, rests at the
- * bottom of the viewport, and climbs back to center as #end scrolls into view.
+ * drives the floating pill: big and centered over #start, resting at the bottom,
+ * then back to center as #end scrolls in
  */
 export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
   const pathname = usePathname();
@@ -27,7 +27,7 @@ export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
     let frame = 0;
 
     const place = (y: number, scale: number, animated: boolean) => {
-      // Skip the transition on first placement so the pill doesn't fly in.
+      // skip the transition on first placement so it doesn't fly in
       const visible = pill.style.opacity === "1";
       pill.style.transition = animated && visible ? TRANSITION : "none";
       pill.style.transform = `translate(-50%, ${y}px) scale(${scale})`;
@@ -39,7 +39,7 @@ export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
       const { innerWidth, innerHeight } = window;
       const { offsetWidth, offsetHeight } = pill;
 
-      // A label that animates its width declares its widest, so the scale holds still.
+      // a label that animates its width declares its widest, so the scale holds still
       const fitEm = Number(pill.dataset.fitEm) || 0;
       const widest = Math.max(offsetWidth, fitEm * parseFloat(getComputedStyle(pill).fontSize));
       const fit = (innerWidth - VIEWPORT_MARGIN_PX) / widest;
@@ -47,8 +47,8 @@ export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
       const restScale = Math.min(REST_SCALE, fit);
       const centerY = -(innerHeight - offsetHeight * fullScale) / 2;
 
-      // Looked up on every update: the layout outlives page navigations, and
-      // Next keeps hidden routes in the DOM, where these measure as zero.
+      // looked up every update: the layout outlives navigations, and next keeps hidden
+      // routes in the DOM, where they measure as zero
       const start = document.getElementById("start");
       const end = document.getElementById("end");
 
@@ -57,7 +57,7 @@ export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
         return;
       }
 
-      // #end can be shorter than the viewport, so the climb completes over its own height.
+      // #end can be shorter than the viewport, so the climb uses its own height
       const endRect = end?.getBoundingClientRect();
       const endTop = endRect ? endRect.top : innerHeight;
       const climb = Math.min(innerHeight, endRect?.height || innerHeight);
@@ -80,8 +80,7 @@ export function usePillAnimation(pillRef: RefObject<HTMLDivElement | null>) {
 
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
-    // The pill's width changes with its label and slots, which changes how
-    // large it can get.
+    // the pill's width changes with its label and slots, which changes how big it can get
     const resizeObserver = new ResizeObserver(schedule);
     resizeObserver.observe(pill);
     update();

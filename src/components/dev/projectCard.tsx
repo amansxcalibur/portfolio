@@ -4,7 +4,7 @@ import { TrackedSection } from "@/components/navigation/TrackedSection";
 import type { Project } from "@/content/projects";
 import { getRepoStars } from "@/lib/github";
 
-// A star or two reads as less than none at all.
+// a star or two looks worse than none
 const MIN_STARS_SHOWN = 5;
 
 export type ProjectTheme = {
@@ -16,12 +16,12 @@ export type ProjectTheme = {
 type ProjectCardProps = {
   project: Project;
   theme: ProjectTheme;
-  /** "split" puts media beside the text on wide screens, "stacked" below it. */
+  /** "split" puts media beside the text on wide screens, "stacked" below */
   layout: "split" | "stacked";
   children: ReactNode;
-  /** Extra content under the links, such as an install command. */
+  /** extra content under the links, like an install command */
   footnote?: ReactNode;
-  /** Shown to the right of the text in a "stacked" card on wide screens, such as a logo. */
+  /** shown right of the text in a stacked card on wide screens, like a logo */
   aside?: ReactNode;
 };
 
@@ -52,13 +52,13 @@ export async function ProjectCard({
               : "gap-6"
           }`}
         >
-          {/* Top-aligned in a split card, so every title starts the same distance from the card's edge. */}
+          {/* top-aligned so every title starts at the same spot */}
           <div
             className={
               layout !== "stacked"
                 ? "self-start"
                 : aside
-                  ? // The same two halves as a split card, so the aside shares an axis with the media in the cards around it.
+                  ? // same halves as a split card, so the aside lines up with media in the cards around it
                     "grid items-center gap-[clamp(1.5rem,3vw,3rem)] lg:grid-cols-2"
                   : ""
             }
@@ -112,7 +112,7 @@ export async function ProjectCard({
               </ul>
 
               <div className="mt-3 flex flex-wrap gap-2">
-                {/* The radius is half the button's height, not rounded-full: an infinite radius can't ease to a corner. */}
+                {/* radius is half the height, not rounded-full: an infinite radius can't ease to a corner */}
                 {project.links.map(({ label, href }) => (
                   <a
                     key={label}
@@ -128,7 +128,7 @@ export async function ProjectCard({
               </div>
               {footnote}
             </div>
-            {/* Centered in the right half of a stacked card, and as tall as the text beside it: it runs from the title's top to the buttons' bottom. */}
+            {/* centered in the right half, from the title's top to the buttons' bottom */}
             {layout === "stacked" && aside && (
               <div className="relative self-stretch max-lg:hidden">
                 <div className="absolute inset-0 flex items-center justify-center">

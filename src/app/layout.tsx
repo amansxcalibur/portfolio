@@ -6,19 +6,17 @@ import { TrackedEnd } from "@/components/navigation/TrackedEnd";
 import { THEME_INIT_SCRIPT } from "@/content/themes";
 import "./globals.css";
 
-// Width, slant, grade and roundness drive the type animation in the pill and
-// the hover states across the site. Optical size is left out on purpose: it
-// alone grows the latin file from about 290 KB to 1 MB.
+// width, slant, grade and roundness drive the type animations. opsz is left out on
+// purpose: it alone takes the latin file from ~290 KB to 1 MB
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
   axes: ["GRAD", "ROND", "slnt", "wdth"],
   variable: "--font-google-sans-flex",
   display: "swap",
-  // Next has no fallback metrics for this family yet, and warns on every build.
+  // next has no fallback metrics for this font yet and warns on every build
   adjustFontFallback: false,
 });
 
-// Small labels, indices and code.
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
@@ -43,12 +41,11 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      // The inline script below sets data-theme before React hydrates.
+      // the theme script below sets data-theme before react hydrates
       suppressHydrationWarning
       className={`${googleSansFlex.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        {/* Runs while the HTML is parsed, so a saved theme is in place before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <SectionProvider>
           <NavOverlay />

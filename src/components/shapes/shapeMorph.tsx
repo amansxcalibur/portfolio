@@ -4,17 +4,16 @@ import { useId, useRef } from "react";
 import { initialFrame, morphPath, TEMPOS, useMorphLoop, type Tempo } from "./useMorphLoop";
 
 type ShapeMorphProps = {
-  /** Which shape in the sequence to begin on. */
   startAt?: number;
   tempo?: Tempo;
-  /** Overrides how long the tempo holds each shape. */
+  /** overrides how long the tempo holds each shape */
   holdMs?: number;
-  /** Colors spread evenly from top left to bottom right. Defaults to currentColor. */
+  /** colors spread from top left to bottom right, defaults to currentColor */
   gradient?: readonly string[];
   className?: string;
 };
 
-/** A looping shape morph, colored with currentColor. */
+/** looping shape morph in currentColor */
 export function ShapeMorph({
   startAt = 0,
   tempo = "gentle",

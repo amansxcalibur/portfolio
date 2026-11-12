@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useSection } from "@/components/navigation/pillConfig";
 
-/** Marks the returned ref's element as the active section while it crosses mid-viewport. */
+/** marks the ref's element as the active section while it crosses mid-viewport */
 export function useSectionTracker<T extends HTMLElement = HTMLDivElement>(
   sectionId: string,
 ) {

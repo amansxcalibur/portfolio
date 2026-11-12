@@ -13,7 +13,7 @@ type Entry = {
   kind: "art" | "dev";
   blurb: string;
   href: string;
-  /** Tool or stack, shown on wide screens. */
+  /** tool or stack, shown on wide screens */
   meta: string;
   thumb: ReactNode;
 };
@@ -81,7 +81,6 @@ const KIND_STYLE = {
   dev: "bg-[#a6f0cb] text-[#00392a]",
 };
 
-/** An editorial index of specific work, rather than a binary art/dev choice. */
 export function SelectedWork() {
   return (
     <TrackedSection
@@ -128,7 +127,7 @@ export function SelectedWork() {
                   <ArrowIcon className="size-4 transition-transform duration-300 group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5 sm:hidden" />
                 </span>
 
-                <span className="relative aspect-[4/3] w-28 overflow-hidden rounded-lg ring-1 ring-on-surface/10 transition-transform duration-300 group-hover/row:-rotate-3 group-hover/row:scale-105 max-sm:hidden">
+                <span className="relative aspect-4/3 w-28 overflow-hidden rounded-lg ring-1 ring-on-surface/10 transition-transform duration-300 group-hover/row:-rotate-3 group-hover/row:scale-105 max-sm:hidden">
                   {entry.thumb}
                 </span>
               </Link>

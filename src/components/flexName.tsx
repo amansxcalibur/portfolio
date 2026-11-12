@@ -3,13 +3,13 @@
 import { useEffect, useRef } from "react";
 import { animate, type AnimationPlaybackControls } from "motion/react";
 
-/** One letter's place in the typeface's design space. */
+/** pose for me real quick ;) */
 type Pose = {
   wght: number;
   wdth: number;
   slnt: number;
   ROND: number;
-  /** Set in the pill's second ink. */
+  /** uses the pill's accent ink */
   accent?: boolean;
 };
 
@@ -26,26 +26,26 @@ const REST = pose(500, 100, 0, 100);
 const HAIR = pose(160, 38);
 const SLAB = pose(1000, 130, 0, 0, true);
 
-/** Each frame styles the letters A, m, a, n. The loop holds on one, then springs to the next. */
+/** each frame styles A, m, a, n. holds on one, then springs to the next */
 const FRAMES: Pose[][] = [
   all(REST),
-  // A heavy capital leading a hairline word.
+  // heavy capital, hairline rest
   [pose(1000, 151, 0, 0, true), HAIR, HAIR, HAIR],
-  // Tall and tight, like a poster.
+  // tall and tight, poster-ish
   all(pose(820, 25, 0, 100)),
-  // Wide and barely there.
+  // wide and barely there
   all(pose(140, 151, 0, 0, true)),
-  // Alternating hairline and slab.
+  // hairline and slab, alternating
   [HAIR, SLAB, HAIR, SLAB],
-  // Leaning into it.
+  // leaning into it
   all(pose(900, 112, -10, 100)),
-  // Weight climbing as the width falls away.
+  // weight up, width down
   [pose(100, 151), pose(400, 112), pose(700, 76, 0, 0, true), pose(1000, 44, 0, 0, true)],
-  // Soft, compact, slanted.
+  // soft, compact, slanted
   all(pose(620, 72, -10, 100, true)),
 ];
 
-/** The widest the word gets across FRAMES, in em. The pill reserves room for it on small screens. */
+/** widest the word gets across FRAMES, in em. the pill reserves room for it on small screens */
 export const FLEX_NAME_MAX_EM = 3.9;
 
 const LETTERS = ["A", "m", "a", "n"];
@@ -63,10 +63,7 @@ const mix = (from: Pose, to: Pose, t: number): Pose => ({
   ROND: from.ROND + (to.ROND - from.ROND) * t,
 });
 
-/**
- * "Aman", flexing through Google Sans Flex's weight, width, slant and roundness
- * one letter at a time. Static under reduced motion.
- */
+/** "Aman" flexing through weight, width, slant and roundness one letter at a time. static under reduced motion */
 export function FlexName() {
   const lettersRef = useRef<(HTMLSpanElement | null)[]>([]);
 
@@ -76,7 +73,7 @@ export function FlexName() {
     let frame = 0;
     let timer: ReturnType<typeof setTimeout>;
     let running: AnimationPlaybackControls[] = [];
-    // Where each letter actually is, so an interrupted spring continues from there.
+    // where each letter actually is, so an interrupted spring picks up from there
     const current = FRAMES[0].map((p) => ({ ...p }));
 
     const step = () => {

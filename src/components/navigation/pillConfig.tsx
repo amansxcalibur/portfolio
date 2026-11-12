@@ -26,16 +26,14 @@ const slotClass =
 const iconClass = "size-[0.8em]";
 const extraColors = "bg-inverse text-on-inverse";
 
-/** Width of the controls capsule: two buttons sharing one shape, a little tighter than two circles. */
+/** controls capsule width: two buttons in one shape, a bit tighter than two circles */
 const CONTROLS_WIDTH_EM = 3.25;
 const controlClass =
   "flex h-full flex-1 items-center justify-center rounded-full transition-colors hover:bg-on-inverse/15 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-current";
 
 /**
- * The pill's own controls in one shape. With a way back to the top it is a
- * capsule: back, then hide. Hide sits next to the pill, so a near miss from
- * the label costs nothing. Without one it is a single circle; inner pages get
- * home from the name in the top nav.
+ * the pill's own controls. with back-to-top it's a capsule (back, then hide), otherwise
+ * just a hide circle. hide sits next to the pill so a near miss costs nothing
  */
 function Controls({ backToTop = false }: { backToTop?: boolean }) {
   const { dismiss } = useSection();
@@ -99,21 +97,21 @@ const endLinkClass =
 
 type SectionPill = {
   center: ReactNode;
-  /** Always visible beside the pill. */
+  /** always visible beside the pill */
   left?: ReactNode;
   right?: ReactNode;
-  /** Revealed when the pill is hovered, focused or tapped. */
+  /** revealed on hover, focus or tap */
   extraLeft?: ReactNode;
   extraRight?: ReactNode;
-  /** Width of extraLeft in em when it is wider than one circle. */
+  /** width of extraLeft in em, when it's wider than a circle */
   extraLeftWidthEm?: number;
-  /** The center label animates its own width; the pill follows it without a spring. */
+  /** the label animates its own width, the pill follows without a spring */
   fluid?: boolean;
-  /** Widest the whole pill gets, in em, so its scale can be fitted to the viewport once. */
+  /** widest the whole pill gets in em, so its scale can be fit to the viewport once */
   fitEm?: number;
 };
 
-// Label padding, the shape slot beside it and the gap between them.
+// label padding + shape slot + gap
 const START_CHROME_EM = 1.4 + 1.75 + 0.5;
 
 export const SECTION_CONFIG: Record<string, SectionPill> = {
@@ -180,9 +178,9 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
 };
 
 const SectionContext = createContext<{
-  /** Empty until a section on the page has reported in. */
+  /** empty until a section reports in */
   activeSection: string;
-  /** The pill was closed for the current section. Reset by the next section. */
+  /** the pill was closed for this section, resets on the next one */
   dismissed: boolean;
   setActiveSection: (section: string) => void;
   dismiss: () => void;

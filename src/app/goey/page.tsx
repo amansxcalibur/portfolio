@@ -37,8 +37,6 @@ export default function GooeyDrag() {
   const endDrag = () => {
     setIsDragging(false);
     drag.current = null;
-    // Optional: snap back to start when released
-    // setPos({ x: 0, y: 0 });
   };
 
   return (
@@ -52,9 +50,9 @@ export default function GooeyDrag() {
       <Liquid.Item
         observe
         dissolve={{
-          warp: 40, // Higher turbulence
-          mix: 1, // Maximum marbling/erosion strength
-          gravity: 100, // How deep the melt reaches into the element
+          warp: 40, // more turbulence
+          mix: 1, // max marbling strength
+          gravity: 100, // how deep the melt goes
           active: isDragging,
         }}
         className="shrink-0 cursor-grab touch-none select-none active:cursor-grabbing"

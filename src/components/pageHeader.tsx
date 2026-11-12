@@ -3,18 +3,15 @@ import { ShapeMorph } from "@/components/shapes/shapeMorph";
 
 type PageHeaderProps = {
   eyebrow: string;
-  /** Headline. Wrap the accent in <em>. */
   title: ReactNode;
   lead: string;
-  /** Which shape the morph in the corner begins on. */
+  /** which shape the corner morph starts on */
   shapeStart?: number;
 };
 
-/** The opening of every inner page: label, headline, one line, and a shape. */
 export function PageHeader({ eyebrow, title, lead, shapeStart = 0 }: PageHeaderProps) {
   return (
     <header className="px-[clamp(0.25rem,2vw,2rem)] pt-36 pb-[clamp(2rem,4vw,4rem)]">
-      {/* The shape is centered against the text block. On phones it stays up in the corner, clear of the title. */}
       <div className="relative">
         <div className="pointer-events-none absolute right-0 flex items-center max-sm:-top-8 sm:inset-y-0">
           <ShapeMorph startAt={shapeStart} className="size-[clamp(4.5rem,12vw,10rem)] text-pop" />

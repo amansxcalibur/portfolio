@@ -2,7 +2,6 @@ import { ArrowIcon } from "@/components/icons";
 import { HashLink } from "@/components/navigation/hashLink";
 import { TrackedSection } from "@/components/navigation/TrackedSection";
 
-/** The pill sits centered over this section; see usePillAnimation. */
 export function Hero() {
   return (
     <TrackedSection
@@ -14,7 +13,7 @@ export function Hero() {
         <h1 className="animate-rise flex-display text-[clamp(2.75rem,5.2vw,4.75rem)] leading-none [animation-delay:250ms]">
           Aman <em>Valiyakath</em>
         </h1>
-        {/* The radius is half the size, not rounded-full: an infinite radius can't ease to a corner. */}
+
         <HashLink
           to="about"
           aria-label="Scroll to about"

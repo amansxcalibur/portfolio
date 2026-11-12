@@ -1,6 +1,5 @@
 import { cacheLife } from "next/cache";
 
-/** Live star count for an `owner/name` repo, or null if GitHub can't be reached. */
 export async function getRepoStars(repo: string): Promise<number | null> {
   "use cache";
 
@@ -20,8 +19,8 @@ export async function getRepoStars(repo: string): Promise<number | null> {
     cacheLife("hours");
     return stars;
   } catch {
-    // Unauthenticated requests are rate limited, so retry soon rather than
-    // keeping a missing count for hours.
+    // unauthenticated requests get rate limited, so retry soon instead of caching a
+    // missing count for hours
     cacheLife("minutes");
     return null;
   }

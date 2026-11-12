@@ -7,16 +7,16 @@ const GAP_EM = 0.5;
 
 type MergeSlotProps = {
   side: "left" | "right";
-  /** "primary" stays out while it has content. "secondary" waits for the pill to expand. */
+  /** "primary" stays out while it has content, "secondary" waits for the pill to expand */
   level: "primary" | "secondary";
-  /** A circle by default; wider for a capsule holding several buttons. */
+  /** circle by default, wider for a capsule with several buttons */
   widthEm?: number;
   children: ReactNode;
 };
 
-/** A circle, or a wider capsule, that merges out from behind the pill. */
+/** a circle or capsule that merges out from behind the pill */
 export function MergeSlot({ side, level, widthEm = CIRCLE_EM, children }: MergeSlotProps) {
-  // Keep the last content and its width so it can tuck away smoothly when a section has none.
+  // keep the last content and width so it can tuck away smoothly
   const [rendered, setRendered] = useState({ children, widthEm });
   if (children && (children !== rendered.children || widthEm !== rendered.widthEm)) {
     setRendered({ children, widthEm });
@@ -31,7 +31,7 @@ export function MergeSlot({ side, level, widthEm = CIRCLE_EM, children }: MergeS
   return (
     <div
       inert={!active}
-      // Primary slots sit above secondary ones, which tuck behind them.
+      // primary slots sit above secondary ones
       className={`relative shrink-0 ${level === "primary" ? "z-[5]" : "z-0"}`}
       style={{
         [side === "left" ? "marginRight" : "marginLeft"]:
@@ -40,7 +40,7 @@ export function MergeSlot({ side, level, widthEm = CIRCLE_EM, children }: MergeS
         transition,
       }}
       onTransitionEnd={(event) => {
-        // Unmount once tucked away so hidden content stops animating.
+        // unmount once tucked away so hidden stuff stops animating
         if (!active && event.target === event.currentTarget && event.propertyName === "opacity") {
           setRendered({ children: null, widthEm: CIRCLE_EM });
         }

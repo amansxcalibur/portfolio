@@ -6,16 +6,15 @@ import { usePillAnimation } from "@/hooks/usePillAnimation";
 import { MergeSlot } from "./mergeSlot";
 import { useSection, SECTION_CONFIG } from "./pillConfig";
 
-// Same timing as the side slots in MergeSlot (0.4s, CSS "ease"), so the pill and its sides move as one.
 const RESIZE = { duration: 0.07, ease: [0.25, 0.1, 0.25, 1] } as const;
 const LABEL_CLASS = "block w-max animate-pill-label px-[0.7em] py-[0.125em]";
 
 type PillCenterProps = {
   id: string;
   children: ReactNode;
-  /** The label keeps changing width (animated type), so the pill hugs it frame by frame. */
+  /** the label keeps changing width, so the pill hugs it every frame */
   fluid?: boolean;
-  /** Present when the section has extras to reveal, for touch and keyboard. */
+  /** set when the section has extras to reveal, for touch and keyboard */
   expanded?: boolean;
   onToggle?: () => void;
 };
@@ -24,14 +23,14 @@ function PillCenter({ id, children, fluid, expanded, onToggle }: PillCenterProps
   const boxRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // The width is driven outside React: a fluid label resizes on every frame.
+  // width is driven outside react since a fluid label resizes every frame
   useEffect(() => {
     const box = boxRef.current;
     const el = contentRef.current;
     if (!box || !el) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // In em, so a viewport-driven font size change never retriggers the resize.
+    // in em, so viewport font size changes don't retrigger a resize
     const measure = () => el.offsetWidth / parseFloat(getComputedStyle(el).fontSize);
     const set = (em: number) => {
       box.style.width = `${em}em`;
@@ -44,7 +43,7 @@ function PillCenter({ id, children, fluid, expanded, onToggle }: PillCenterProps
       const next = el.dataset.label;
       const sameLabel = next === label;
       const hug = sameLabel && el.dataset.fluid === "true";
-      // Snap on first measurement so the pill doesn't grow in from nothing.
+      // snap on first measure so the pill doesn't grow in from nothing
       const first = label === undefined;
       label = next;
 
@@ -52,7 +51,7 @@ function PillCenter({ id, children, fluid, expanded, onToggle }: PillCenterProps
         set(measure());
         return;
       }
-      // Let the resize to a new label land before hugging; it catches up below.
+      // let the resize to the new label land first, it catches up below
       if (hug) return;
 
       resize?.stop();
@@ -75,7 +74,7 @@ function PillCenter({ id, children, fluid, expanded, onToggle }: PillCenterProps
   return (
     <div
       ref={boxRef}
-      className="relative z-10 shrink-0 overflow-hidden rounded-full bg-inverse leading-[1.5] tracking-wide text-on-inverse shadow-[0_0_0_1px_rgb(255_255_255/0.2)]"
+      className="relative z-10 shrink-0 overflow-hidden rounded-full bg-inverse leading-normal tracking-wide text-on-inverse shadow-[0_0_0_1px_rgb(255_255_255/0.2)]"
     >
       <div ref={contentRef} data-label={id} data-fluid={fluid} className="w-max">
         {onToggle ? (
@@ -102,11 +101,11 @@ export default function Pill() {
   const pillRef = useRef<HTMLDivElement>(null);
   const { activeSection, dismissed } = useSection();
   const config = SECTION_CONFIG[activeSection] ?? SECTION_CONFIG.start;
-  // Stored per section, so moving to another section collapses the pill again.
+  // per section, so moving on collapses the pill again
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const expanded = expandedSection === activeSection;
   const hasExtras = Boolean(config.extraLeft || config.extraRight);
-  // Waiting for a section avoids flashing the home label on other pages.
+  // wait for a section so other pages don't flash the home label
   const hidden = dismissed || !activeSection;
 
   usePillAnimation(pillRef);
@@ -115,7 +114,7 @@ export default function Pill() {
     <div
       ref={pillRef}
       data-fit-em={config.fitEm}
-      // Hidden until usePillAnimation has placed it, then positioned by inline style.
+      // hidden until usePillAnimation places it
       className="pointer-events-none fixed bottom-0 left-1/2 z-50 origin-bottom font-round text-[clamp(2rem,4.4vw,4rem)] whitespace-nowrap opacity-0"
     >
       <div

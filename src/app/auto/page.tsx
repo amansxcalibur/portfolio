@@ -33,7 +33,7 @@ export default function GooeyDrag() {
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     setIsDragging(true);
-    setMerged(false); // Cancel merged state if user grabs it manually
+    setMerged(false); // grabbing it cancels the merge
 
     const c = circleRef.current!.getBoundingClientRect();
     const p = pillRef.current!.getBoundingClientRect();
@@ -71,12 +71,12 @@ export default function GooeyDrag() {
 
   const toggleMerge = () => {
     if (merged) {
-      // Unmerge: send back to original position
+      // unmerge: send it back
       setPos({ x: 0, y: 0 });
       setT(0);
       setMerged(false);
     } else {
-      // Merge: calculate offset to jump to the pill
+      // merge: jump to the pill
       const c = circleRef.current?.getBoundingClientRect();
       const p = pillRef.current?.getBoundingClientRect();
       if (c && p) {
@@ -97,7 +97,7 @@ export default function GooeyDrag() {
 
   const scale = 1 - 0.85 * t; // liquid shrinks into the pill
   const imgOpacity = 1 - smooth(0.35, 0.9, t); // image fades slightly earlier
-  const blobOpacity = 1 - smooth(0.5, 1, t); // the whole blob goes transparent at the end
+  const blobOpacity = 1 - smooth(0.5, 1, t); // whole blob fades out at the end
 
   return (
     <Liquid
@@ -114,7 +114,6 @@ export default function GooeyDrag() {
         transition={
           isDragging ? { duration: 0 } : { stiffness: 300, damping: 25 }
         }
-        // Changed z-20 to z-0 so it goes behind the pill
         className="shrink-0 cursor-grab touch-none select-none active:cursor-grabbing relative z-0"
       >
         <div
@@ -143,7 +142,6 @@ export default function GooeyDrag() {
         </div>
       </Liquid.Item>
 
-      {/* Changed z-10 to z-20 so it sits in front of the circle */}
       <Liquid.Item observe className="shrink-0 select-none relative z-20">
         <button
           ref={pillRef}

@@ -7,17 +7,15 @@ import Pill from "./pill";
 import { HashLink } from "./hashLink";
 import { ThemeSwitch } from "./themeSwitch";
 
-/** Sections of the current page, by id. */
+// sections on the current page, by id
 const NAV_LINKS = [{ label: "contact", to: "end" }];
 
-// On phones the theme and GitHub islands drop their words. Without a line of
-// text inside they would shrink in height, so hold them to a text island's height.
+// on phones these drop their text, so keep them as tall as a text island
 const compactClass = "max-sm:min-h-[calc(1lh+1em)]";
 
-// Hover balloons an island with a big overshoot. Its size grows in the layout
-// (text and em padding), so it shoves its neighbours aside instead of covering them.
+// only the size overshoots, colors would swing past glass and go see-through
 const linkClass =
-  "pointer-events-auto rounded-full bg-glass px-[1.1em] py-[0.5em] backdrop-blur-xl transition-[font-size,background-color,color] duration-500 ease-[cubic-bezier(0.34,1.8,0.5,1)] motion-safe:hover:text-[1.6em] motion-safe:active:text-[1.45em] hover:bg-inverse hover:text-on-inverse focus-visible:bg-inverse focus-visible:text-on-inverse focus-visible:outline-none aria-[current=page]:bg-inverse aria-[current=page]:text-on-inverse aria-[current=page]:shadow-[0_0_0_1px_rgb(255_255_255/0.2)]";
+  "pointer-events-auto rounded-full bg-glass px-[1.1em] py-[0.5em] backdrop-blur-xl transition-[font-size,background-color,color] duration-500 ease-[cubic-bezier(0.34,1.8,0.5,1),ease-out,ease-out] motion-safe:hover:text-[1.6em] motion-safe:active:text-[1.45em] hover:bg-inverse hover:text-on-inverse focus-visible:bg-inverse focus-visible:text-on-inverse focus-visible:outline-none aria-[current=page]:bg-inverse aria-[current=page]:text-on-inverse aria-[current=page]:shadow-[0_0_0_1px_rgb(255_255_255/0.2)]";
 
 export default function NavOverlay() {
   return (

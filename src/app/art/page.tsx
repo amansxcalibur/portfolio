@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Sketches and animation made in Krita.",
 };
 
-// Same rounding as the project cards on /dev.
+// same rounding as the /dev cards
 const mediaClass =
   "block w-full rounded-[clamp(1rem,2vw,1.75rem)] bg-white ring-1 ring-on-surface/10";
 const gap = "gap-3";
@@ -30,14 +30,13 @@ export default function Art() {
           shapeStart={6}
         />
 
-        {/* Sized by priority: the painting leads, then the portrait beside the two line tests. */}
         <div className={`flex flex-col ${gap}`}>
           <LoopVideo
             src="/krita/intro.mp4"
             label="A painted landscape with a glowing light at its center, animating in a loop"
             className={`${mediaClass} aspect-video object-cover`}
           />
-          {/* At 2:3 the portrait nearly matches the two stacked 16:9 clips; object-cover trims the rest. */}
+          {/* at 2:3 the portrait roughly matches the two stacked clips, object-cover trims the rest */}
           <div className={`grid ${gap} md:grid-cols-[2fr_3fr]`}>
             <Image
               src={endorsi}

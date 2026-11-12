@@ -12,12 +12,10 @@ import { ShapeMorph } from "@/components/shapes/shapeMorph";
 const inlineLinkClass =
   "group/word relative inline-flex items-baseline gap-[0.2em] whitespace-nowrap underline decoration-[0.06em] underline-offset-[0.14em] transition-colors";
 
-/** A small media chip set into the line of text, tilted like a sticker. */
 const chipClass =
   "inline-block h-[0.82em] translate-y-[0.08em] overflow-hidden rounded-[0.18em] align-baseline ring-1 ring-black/10 transition-transform duration-300";
 
 export default function AboutMe() {
-  // The shapes on the left lean towards whichever word is hovered.
   const [focus, setFocus] = useState<StackFocus>("none");
   const focusOn = (layer: StackFocus) => ({
     onPointerEnter: () => setFocus(layer),
@@ -44,7 +42,7 @@ export default function AboutMe() {
               {...focusOn("art")}
               className={`${inlineLinkClass} decoration-pop hover:text-pop`}
             >
-              <span className={`${chipClass} aspect-[4/3] -rotate-6 group-hover/word:rotate-3`}>
+              <span className={`${chipClass} aspect-4/3 -rotate-6 group-hover/word:rotate-3`}>
                 <LoopVideo
                   src="/krita/intro.mp4"
                   label="A painted landscape, animating in a loop"

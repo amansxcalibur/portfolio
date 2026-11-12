@@ -1,7 +1,3 @@
-/**
- * The Zenith Shell logo. Its ink follows the text colour; set --logo-bg to the
- * colour it sits on, which also fills the cut-outs.
- */
 export function ZenithLogo({ className }: { className?: string }) {
   return (
     <svg

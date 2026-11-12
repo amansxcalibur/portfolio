@@ -1,10 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Color themes. Each one is a complete set: a surface and its ink, the pill
- * (inverse) with a second ink for accents, and four pop colors for shapes.
- * The first is the default; the nav's theme chip sets data-theme on <html>.
- * Keep this list in step with THEMES in src/content/themes.ts.
+ * color themes: surface + ink, the pill (inverse) with an accent ink, and four pop colors.
+ * the first one is the default. keep in sync with THEMES in src/content/themes.ts
  */
 :root,
 [data-theme="cobalt"] {
@@ -159,7 +157,7 @@
   --color-inverse: var(--inverse);
   --color-on-inverse: var(--on-inverse);
   --color-on-inverse-accent: var(--on-inverse-accent);
-  /* Tinted from the ink, so the nav chips sit on any surface. */
+  /* tinted from the ink so nav chips work on any surface */
   --color-glass: color-mix(in oklab, var(--on-surface) 10%, transparent);
   --color-pop: var(--pop);
   --color-on-pop: var(--on-pop);
@@ -167,9 +165,10 @@
   --color-on-pop-2: var(--on-pop-2);
   --color-pop-3: var(--pop-3);
   --color-pop-4: var(--pop-4);
-  --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
-  /* Material 3 expressive: a spring with overshoot, and its calmer sibling. */
+  /* material 3 expressive easings: springy and calm */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
   --animate-pill-label: pill-label 420ms var(--ease-emphasized);
@@ -178,40 +177,62 @@
   --animate-boil: boil 1.5s step-end infinite;
 }
 
-/* The label arrives condensed and light, then settles into its width. */
+/* label comes in condensed and light, then settles */
 @keyframes pill-label {
   from {
     opacity: 0;
     filter: blur(10px);
-    font-variation-settings: "wght" 200, "wdth" 60, "ROND" 100;
+    font-variation-settings:
+      "wght" 200,
+      "wdth" 60,
+      "ROND" 100;
   }
   to {
-    font-variation-settings: "wght" 400, "wdth" 100, "ROND" 100;
+    font-variation-settings:
+      "wght" 400,
+      "wdth" 100,
+      "ROND" 100;
   }
 }
 
-/* One word running through the typeface's range. Axes stay in the same order so they interpolate. */
+/* one word running through the font's range. keep the axes in the same order so they interpolate */
 @keyframes flex-loop {
   0%,
   12%,
   100% {
-    font-variation-settings: "wght" 400, "wdth" 100, "slnt" 0, "ROND" 0;
+    font-variation-settings:
+      "wght" 400,
+      "wdth" 100,
+      "slnt" 0,
+      "ROND" 0;
   }
   25%,
   37% {
-    font-variation-settings: "wght" 900, "wdth" 140, "slnt" 0, "ROND" 100;
+    font-variation-settings:
+      "wght" 900,
+      "wdth" 140,
+      "slnt" 0,
+      "ROND" 100;
   }
   50%,
   62% {
-    font-variation-settings: "wght" 200, "wdth" 40, "slnt" -10, "ROND" 0;
+    font-variation-settings:
+      "wght" 200,
+      "wdth" 40,
+      "slnt" -10,
+      "ROND" 0;
   }
   75%,
   87% {
-    font-variation-settings: "wght" 700, "wdth" 75, "slnt" -10, "ROND" 100;
+    font-variation-settings:
+      "wght" 700,
+      "wdth" 75,
+      "slnt" -10,
+      "ROND" 100;
   }
 }
 
-/* Text entering: it rises, sharpens and tightens from wide and thin. */
+/* text rises, sharpens and tightens in */
 @keyframes rise {
   from {
     opacity: 0;
@@ -220,7 +241,7 @@
   }
 }
 
-/* One of three stacked frames, shown for a third of the loop: a hand-drawn line at 2fps. */
+/* one of three stacked frames, a hand-drawn boil at 2fps */
 @keyframes boil {
   0% {
     opacity: 1;
@@ -231,7 +252,7 @@
   }
 }
 
-/* A slow swell and fade, for glows that should feel alive. */
+/* slow swell and fade for glows */
 @keyframes breathe {
   50% {
     scale: 1.05;
@@ -258,15 +279,12 @@ body {
   background: color-mix(in oklab, var(--pop) 40%, transparent);
 }
 
-/* Rounded terminals only where the type sits next to the shapes (the pill). */
+/* rounded terminals, only in the pill next to the shapes */
 @utility font-round {
   font-variation-settings: "ROND" 100;
 }
 
-/*
- * Headlines: Flex set thin, narrow and tall. These are the typeface's own
- * weight, width and slant ranges, so they compose with font-variation-settings.
- */
+/* headlines: thin, narrow and tall. uses the real weight/width/slant props so it composes with font-variation-settings */
 @utility flex-display {
   font-weight: 300;
   font-stretch: 65%;
@@ -278,13 +296,13 @@ body {
   }
 }
 
-/* The accent word in a line of Flex: slanted and rounded, where an italic would sit. */
+/* the accent word: slanted and rounded instead of italic */
 @utility flex-accent {
   font-style: oblique 10deg;
   font-variation-settings: "ROND" 100;
 }
 
-/* Small caps-and-mono label that opens a page or a section. */
+/* small mono label at the top of a page or section */
 @utility eyebrow {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -294,10 +312,7 @@ body {
   color: var(--on-surface-muted);
 }
 
-/*
- * Words that gain grade and soften as the pointer nears (see FlexWords).
- * Grade and roundness don't change a glyph's width, so nothing reflows.
- */
+/* words gain grade and roundness near the pointer (see FlexWords). neither changes glyph width, so no reflow */
 @utility flex-word {
   font-variation-settings:
     "GRAD" calc(var(--near, 0) * 100),

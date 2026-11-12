@@ -37,7 +37,7 @@ const themes = {
     chip: "bg-[#561e19]/10",
   },
   bunkmate: {
-    // The ring keeps the black card's edge on the near-black dark surface.
+    // the ring keeps the black card's edge visible on dark surfaces
     card: "bg-black text-white ring-1 ring-white/10",
     button: "bg-white text-black",
     chip: "bg-white/15",
@@ -85,7 +85,7 @@ export default function Dev() {
         layout="stacked"
         aside={<ZenithLogo className="h-full max-w-full [--logo-bg:#ffdad5]" />}
       >
-        {/* Three 16:9 thumbs and their gaps run a few pixels taller than a 16:9 image three columns wide, so the large one fills the rows and crops to match. */}
+        {/* three 16:9 thumbs plus gaps run a bit taller than the big one, so it fills the rows and crops */}
         <div className="grid gap-2 sm:grid-cols-4">
           <Image
             src={`${ZENITH_SCREENSHOTS}/dashboard-m3-2.png`}

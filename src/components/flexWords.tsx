@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
 
-/** How far the pointer's influence reaches, in multiples of the text's font size. */
+/** how far the pointer reaches, in multiples of the font size */
 const REACH_EM = 4.5;
 
-/** Splits copy into words that respond to the pointer. Use inside <FlexWords>. */
+/** splits copy into words that react to the pointer. use inside <FlexWords> */
 export function words(text: string) {
   return text.split(" ").map((word, i) => (
     <span key={i}>
@@ -17,11 +17,7 @@ export function words(text: string) {
   ));
 }
 
-/**
- * A paragraph that answers the pointer: words near it gain grade and
- * roundness, falling off with distance. Those axes leave glyph widths alone,
- * so the text never reflows.
- */
+/** paragraph where words near the pointer gain grade and roundness. those axes don't change widths, so no reflow */
 export function FlexWords(props: ComponentPropsWithoutRef<"p">) {
   const ref = useRef<HTMLParagraphElement>(null);
 
@@ -43,7 +39,7 @@ export function FlexWords(props: ComponentPropsWithoutRef<"p">) {
           const dy = pointer.y - (box.top + box.height / 2);
           near = Math.max(0, 1 - Math.hypot(dx, dy) / reach);
         }
-        // Eased, so the lit area has a soft edge rather than a cone.
+        // eased so the lit area has a soft edge
         word.style.setProperty("--near", (near * near * (3 - 2 * near)).toFixed(3));
       }
     };
