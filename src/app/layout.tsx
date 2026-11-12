@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   },
   description:
     "Aman Valiyakath explores the intersection of art and programming: desktop environments and UI tooling for Linux, visual art and animation.",
+  // the preview image comes from opengraph-image.tsx, and on vercel next fills in the site url
+  openGraph: { type: "website", siteName: "Aman Valiyakath" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

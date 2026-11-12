@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
-import { ArrowIcon } from "@/components/icons";
+import { ArrowIcon, StarIcon } from "@/components/icons";
 import { TrackedSection } from "@/components/navigation/TrackedSection";
 import type { Project } from "@/content/projects";
 import { getRepoStars } from "@/lib/github";
 
-// a star or two looks worse than none
 const MIN_STARS_SHOWN = 5;
 
 export type ProjectTheme = {
@@ -100,8 +99,10 @@ export async function ProjectCard({
 
               <ul className="mt-4 flex flex-wrap gap-1.5 font-mono text-xs">
                 {stars !== null && stars >= MIN_STARS_SHOWN && (
-                  <li className={`rounded px-2 py-1 ${theme.chip}`}>
-                    ★ {stars} on GitHub
+                  <li className={`inline-flex items-center gap-1 rounded px-2 py-1 ${theme.chip}`}>
+                    <StarIcon className="size-[1.1em]" />
+                    {stars}
+                    <span className="sr-only">stars</span> on GitHub
                   </li>
                 )}
                 {project.facts.map((fact) => (

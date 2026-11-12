@@ -52,7 +52,7 @@ export default function Dev() {
           eyebrow="Dev / open source"
           title={
             <>
-              Things <em>I’ve built</em>
+              Things <em>I've built</em>
             </>
           }
           lead="Desktop shells, shape morphing and web apps, all open source."

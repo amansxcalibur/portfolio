@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: process.env.ALLOWED_DEV_ORIGINS?.split(",") ?? [],
   cacheComponents: true,
   partialPrefetching: true,
   images: {
-    // Zenith Shell screenshots, hosted in the zenith-resources repo.
     remotePatterns: [new URL("https://amansxcalibur.github.io/zenith-resources/**")],
   },
 };

@@ -67,7 +67,7 @@ const ENTRIES: Entry[] = [
   {
     title: bunkmate.name,
     kind: "dev",
-    blurb: "Attendance tracker for students",
+    blurb: "Attendance tracker with 1,000+ monthly users",
     href: `/dev#${bunkmate.slug}`,
     meta: "Next.js",
     thumb: (

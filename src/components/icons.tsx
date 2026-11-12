@@ -76,3 +76,19 @@ export function GitHubIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function StarIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+      className={className ?? "size-[0.85em]"}
+    >
+      <path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" />
+    </svg>
+  );
+}
