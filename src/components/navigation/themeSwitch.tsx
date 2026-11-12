@@ -2,7 +2,6 @@
 
 import { THEME_STORAGE_KEY, THEMES } from "@/content/themes";
 
-/** cycles the color theme. swatch and name come from css vars, so no state and no hydration mismatch */
 export function ThemeSwitch({ className }: { className?: string }) {
   const next = () => {
     const root = document.documentElement;
@@ -19,7 +18,7 @@ export function ThemeSwitch({ className }: { className?: string }) {
     else apply();
 
     try {
-      localStorage.setItem(THEME_STORAGE_KEY, theme);
+      sessionStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch {
       // private mode or blocked storage, still applies for this visit
     }
