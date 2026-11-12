@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { GitHubIcon } from "@/components/icons";
 import { GITHUB_URL } from "@/content/links";
 import Pill from "./pill";
 import { HashLink } from "./hashLink";
@@ -8,6 +9,10 @@ import { ThemeSwitch } from "./themeSwitch";
 
 /** Sections of the current page, by id. */
 const NAV_LINKS = [{ label: "contact", to: "end" }];
+
+// On phones the theme and GitHub islands drop their words. Without a line of
+// text inside they would shrink in height, so hold them to a text island's height.
+const compactClass = "max-sm:min-h-[calc(1lh+1em)]";
 
 // Hover balloons an island with a big overshoot. Its size grows in the layout
 // (text and em padding), so it shoves its neighbours aside instead of covering them.
@@ -22,17 +27,26 @@ export default function NavOverlay() {
         className="pointer-events-none fixed top-0 z-50 flex w-full items-start justify-between gap-2 p-[clamp(0.75rem,1vw,1.25rem)] text-[clamp(0.875rem,1.15vw,1.25rem)]"
       >
         <Link href="/" className={linkClass}>
-          aman<span className="max-sm:hidden"> valiyakath</span>
+          aman<span className="max-[20rem]:hidden"> valiyakath</span>
         </Link>
         <div className="flex items-start gap-1">
-          <ThemeSwitch className={linkClass} />
+          <ThemeSwitch className={`${linkClass} ${compactClass}`} />
           {NAV_LINKS.map(({ label, to }) => (
             <HashLink key={label} to={to} className={linkClass}>
               {label}
             </HashLink>
           ))}
-          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className={linkClass}>
-            github
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            className={`inline-flex items-center max-[23rem]:hidden ${linkClass} ${compactClass}`}
+          >
+            <GitHubIcon className="size-[1.15em] sm:hidden" />
+            <span aria-hidden="true" className="max-sm:hidden">
+              github
+            </span>
           </a>
         </div>
       </nav>
