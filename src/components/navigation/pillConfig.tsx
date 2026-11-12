@@ -133,6 +133,11 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
     right: externalSlot(GITHUB_URL, "All projects on GitHub", "bg-pop text-on-pop"),
     ...pageControls,
   },
+  lost: {
+    center: "~Lost",
+    right: emojiSlot("🧭"),
+    ...pageControls,
+  },
   [`project-${expressiveShapes.slug}`]: projectSection(
     expressiveShapes,
     "bg-[#a6f0cb] text-[#00392a]",
