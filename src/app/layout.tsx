@@ -6,11 +6,12 @@ import { TrackedEnd } from "@/components/navigation/TrackedEnd";
 import { THEME_INIT_SCRIPT } from "@/content/themes";
 import "./globals.css";
 
-// Every axis, not just weight: width, slant, grade and roundness drive the
-// type animation in the pill and the hover states across the site.
+// Width, slant, grade and roundness drive the type animation in the pill and
+// the hover states across the site. Optical size is left out on purpose: it
+// alone grows the latin file from about 290 KB to 1 MB.
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
-  axes: ["GRAD", "ROND", "opsz", "slnt", "wdth"],
+  axes: ["GRAD", "ROND", "slnt", "wdth"],
   variable: "--font-google-sans-flex",
   display: "swap",
   // Next has no fallback metrics for this family yet, and warns on every build.

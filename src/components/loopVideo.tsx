@@ -8,22 +8,34 @@ type LoopVideoProps = {
   className?: string;
 };
 
-/** Muted looping video that respects reduced motion and stops when its route is hidden. */
+/**
+ * Muted looping video that plays only while on screen and respects reduced
+ * motion. There is no autoplay attribute: it would make the browser download
+ * the whole file up front, even far below the fold. Until then only the
+ * metadata and first frame load.
+ */
 export function LoopVideo({ src, label, className }: LoopVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Autoplay can be refused (e.g. battery saver). The first frame still shows.
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      // Start a little early so the clip is moving by the time it is seen.
+      { rootMargin: "200px 0px" },
+    );
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
       video.pause();
-      return;
-    }
-
-    // Autoplay can be refused (e.g. battery saver). The first frame still shows.
-    video.play().catch(() => {});
-    return () => video.pause();
+    };
   }, []);
 
   return (
@@ -31,7 +43,6 @@ export function LoopVideo({ src, label, className }: LoopVideoProps) {
       ref={ref}
       src={src}
       aria-label={label}
-      autoPlay
       muted
       loop
       playsInline
