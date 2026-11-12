@@ -127,7 +127,7 @@ export default function Pill() {
             : "pointer-events-auto"
         }`}
       >
-        <MergeSlot side="left" level="secondary" widthEm={config.extraLeftWidthEm}>
+        <MergeSlot side="left" level="secondary">
           {config.extraLeft}
         </MergeSlot>
         <MergeSlot side="left" level="primary">

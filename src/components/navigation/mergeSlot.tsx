@@ -9,21 +9,16 @@ type MergeSlotProps = {
   side: "left" | "right";
   /** "primary" stays out while it has content, "secondary" waits for the pill to expand */
   level: "primary" | "secondary";
-  /** circle by default, wider for a capsule with several buttons */
-  widthEm?: number;
   children: ReactNode;
 };
 
-/** a circle or capsule that merges out from behind the pill */
-export function MergeSlot({ side, level, widthEm = CIRCLE_EM, children }: MergeSlotProps) {
-  // keep the last content and width so it can tuck away smoothly
-  const [rendered, setRendered] = useState({ children, widthEm });
-  if (children && (children !== rendered.children || widthEm !== rendered.widthEm)) {
-    setRendered({ children, widthEm });
-  }
+/** a circle that merges out from behind the pill */
+export function MergeSlot({ side, level, children }: MergeSlotProps) {
+  // keep the last content so it can tuck away smoothly
+  const [rendered, setRendered] = useState(children);
+  if (children && children !== rendered) setRendered(children);
 
   const active = Boolean(children);
-  const width = rendered.widthEm;
   const reveal = !active ? "0" : level === "primary" ? "1" : "var(--pill-expanded, 0)";
   const direction = side === "left" ? 1 : -1;
   const transition = "margin 0.4s, transform 0.4s, opacity 0.4s";
@@ -35,26 +30,26 @@ export function MergeSlot({ side, level, widthEm = CIRCLE_EM, children }: MergeS
       className={`relative shrink-0 ${level === "primary" ? "z-[5]" : "z-0"}`}
       style={{
         [side === "left" ? "marginRight" : "marginLeft"]:
-          `calc(-${width}em + ${width + GAP_EM}em * ${reveal})`,
+          `calc(-${CIRCLE_EM}em + ${CIRCLE_EM + GAP_EM}em * ${reveal})`,
         opacity: reveal,
         transition,
       }}
       onTransitionEnd={(event) => {
         // unmount once tucked away so hidden stuff stops animating
         if (!active && event.target === event.currentTarget && event.propertyName === "opacity") {
-          setRendered({ children: null, widthEm: CIRCLE_EM });
+          setRendered(null);
         }
       }}
     >
       <div
         style={{
-          width: `${width}em`,
+          width: `${CIRCLE_EM}em`,
           height: `${CIRCLE_EM}em`,
-          transform: `translateX(calc(${direction * Math.max(0.9, width / 2)}em * (1 - ${reveal}))) scale(calc(0.4 + 0.6 * ${reveal}))`,
+          transform: `translateX(calc(${direction * 0.9}em * (1 - ${reveal}))) scale(calc(0.4 + 0.6 * ${reveal}))`,
           transition,
         }}
       >
-        {rendered.children}
+        {rendered}
       </div>
     </div>
   );

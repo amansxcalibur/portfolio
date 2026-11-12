@@ -26,40 +26,22 @@ const slotClass =
 const iconClass = "size-[0.8em]";
 const extraColors = "bg-inverse text-on-inverse";
 
-/** controls capsule width: two buttons in one shape, a bit tighter than two circles */
-const CONTROLS_WIDTH_EM = 3.25;
-const controlClass =
-  "flex h-full flex-1 items-center justify-center rounded-full transition-colors hover:bg-on-inverse/15 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-current";
-
-/**
- * the pill's own controls. with back-to-top it's a capsule (back, then hide), otherwise
- * just a hide circle. hide sits next to the pill so a near miss costs nothing
- */
-function Controls({ backToTop = false }: { backToTop?: boolean }) {
+/** hides the pill until the next section. sits right next to it, so a near miss costs nothing */
+function Dismiss() {
   const { dismiss } = useSection();
   return (
-    <div
-      className={`flex size-full items-center rounded-full shadow-[0_0_0_1px_rgb(255_255_255/0.2)] ${extraColors}`}
+    <button
+      type="button"
+      aria-label="Hide this menu until the next section"
+      onClick={dismiss}
+      className={`${slotClass} ${extraColors} cursor-pointer`}
     >
-      {backToTop && (
-        <HashLink to="start" aria-label="Back to top" className={controlClass}>
-          <ArrowIcon className={`${iconClass} -rotate-45`} />
-        </HashLink>
-      )}
-      <button
-        type="button"
-        aria-label="Hide this menu until the next section"
-        onClick={dismiss}
-        className={`${controlClass} cursor-pointer`}
-      >
-        <CloseIcon className={iconClass} />
-      </button>
-    </div>
+      <CloseIcon className={iconClass} />
+    </button>
   );
 }
 
-const pageControls = { extraLeft: <Controls /> };
-const topControls = { extraLeft: <Controls backToTop />, extraLeftWidthEm: CONTROLS_WIDTH_EM };
+const pageControls = { extraLeft: <Dismiss /> };
 
 function externalSlot(href: string, label: string, colors: string) {
   return (
@@ -103,8 +85,6 @@ type SectionPill = {
   /** revealed on hover, focus or tap */
   extraLeft?: ReactNode;
   extraRight?: ReactNode;
-  /** width of extraLeft in em, when it's wider than a circle */
-  extraLeftWidthEm?: number;
   /** the label animates its own width, the pill follows without a spring */
   fluid?: boolean;
   /** widest the whole pill gets in em, so its scale can be fit to the viewport once */
@@ -133,11 +113,11 @@ export const SECTION_CONFIG: Record<string, SectionPill> = {
   about: {
     center: "~About",
     right: emojiSlot("❤️"),
-    ...topControls,
+    ...pageControls,
   },
   work: {
     center: "~Index",
-    ...topControls,
+    ...pageControls,
   },
   art: {
     center: "~Lots left",
