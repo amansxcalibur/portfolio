@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useEffectEvent, type RefObject } from "react";
-import { animate, type AnimationPlaybackControls } from "motion/react";
+import { animate, type Playback } from "@/lib/animate";
 import { MORPH_PAIRS } from "./morphData";
 
 /** each morph also turns the shape this many degrees */
@@ -69,7 +69,7 @@ export function useMorphLoop(
     let angle = 0;
     let visible = true;
     let timer: ReturnType<typeof setTimeout>;
-    let controls: AnimationPlaybackControls | undefined;
+    let controls: Playback | undefined;
 
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;

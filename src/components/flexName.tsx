@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animate, type AnimationPlaybackControls } from "motion/react";
+import { animate, type Playback } from "@/lib/animate";
 
 /** pose for me real quick ;) */
 type Pose = {
@@ -72,7 +72,7 @@ export function FlexName() {
 
     let frame = 0;
     let timer: ReturnType<typeof setTimeout>;
-    let running: AnimationPlaybackControls[] = [];
+    let running: Playback[] = [];
     // where each letter actually is, so an interrupted spring picks up from there
     const current = FRAMES[0].map((p) => ({ ...p }));
 

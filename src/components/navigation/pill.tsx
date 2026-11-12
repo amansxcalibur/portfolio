@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { animate, type AnimationPlaybackControls } from "motion/react";
+import { animate, type Playback } from "@/lib/animate";
 import { usePillAnimation } from "@/hooks/usePillAnimation";
 import { MergeSlot } from "./mergeSlot";
 import { useSection, SECTION_CONFIG } from "./pillConfig";
@@ -37,7 +37,7 @@ function PillCenter({ id, children, fluid, expanded, onToggle }: PillCenterProps
     };
 
     let label: string | undefined;
-    let resize: AnimationPlaybackControls | undefined;
+    let resize: Playback | undefined;
 
     const observer = new ResizeObserver(() => {
       const next = el.dataset.label;
